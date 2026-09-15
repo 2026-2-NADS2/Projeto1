@@ -12,11 +12,11 @@ Vide tutoriais do PI.
 
 # Nome do Projeto
 
-## Nome do Grupo
+## 4U
 
-## Integrantes: <a href="https://www.linkedin.com/in/victorbarq/">Goku Sayajin</a>, <a href="https://www.linkedin.com/in/victorbarq/">Saitama One</a>, <a href="https://www.linkedin.com/in/victorbarq/">Ikki de Fenix</a>, <a href="https://www.linkedin.com/in/victorbarq/">Yusuke Urameshi</a>, <a href="https://www.linkedin.com/in/victorbarq/">Roronoa Zoro</a>
+## Integrantes: <a href="https://www.linkedin.com/in/anna-paula-alves/">Anna Paula Alves Silva</a>, <a href="https://www.linkedin.com/in/dilly-martins-217176361/">Dilly Martins da Silva</a>, <a href="https://www.linkedin.com/in/laurarayssa/">Laura Rayssa Souza Araújo</a>, <a href="https://www.linkedin.com/in/rafaela-carvalho-barcos-mello-8484ba282/">Rafaela Carvalho Barcos Mello</a>
 
-## Professores Orientadores: <a href="https://www.linkedin.com/in/victorbarq/">Dr. Victor Von Doom</a>, <a href="https://www.linkedin.com/in/victorbarq/">Me. Saitama</a>, <a href="https://www.linkedin.com/in/victorbarq/">Dr. Strange</a>, <a href="https://www.linkedin.com/in/victorbarq/">Me. Yoda</a>, <a href="https://www.linkedin.com/in/victorbarq/">Dr. Gero</a>
+## Professores Orientadores: <a href="https://www.linkedin.com/in/adriano-valente/">Adriano Felix Valente</a>, <a href="https://www.linkedin.com/in/eduardo-savino/">Eduardo Savino Gomes</a>, <a href="https://www.linkedin.com/in/francisco-escobar/">Francisco Escobar</a>, <a href="https://www.linkedin.com/in/jbuesso/">José carlos Buesso Junior</a>, <a href="https://www.linkedin.com/in/ronaldo-araujo-pinto-3542811a/">Ronaldo Araujo Pinto</a>,
 
 ## Descrição
 
