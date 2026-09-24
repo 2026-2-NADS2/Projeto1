@@ -34,23 +34,23 @@ O projeto 4U conecta professores, administração e responsáveis através de um
 |<br>
 |-->documentos<br>
 |  &emsp;|-->Entrega 1<br>
-|  &emsp; &emsp;|-->BD<br>
+|  &emsp; &emsp;|-->Banco de Dados<br>
 |  &emsp; &emsp;|-->Desenvolvimento Web Fullstack<br>
 |  &emsp; &emsp;|-->Design de Interface Digital<br>
 |  &emsp; &emsp;|-->Estrutura de Dados<br>
-|  &emsp; &emsp;|-->POO<br>
+|  &emsp; &emsp;|-->Programação Orientada a Objeto<br>
 |  &emsp;|-->Entrega 2<br>
-|  &emsp; &emsp;|-->BD<br>
+|  &emsp; &emsp;|-->Banco de Dados<br>
 |  &emsp; &emsp;|-->Desenvolvimento Web Fullstack<br>
 |  &emsp; &emsp;|-->Design de Interface Digital<br>
 |  &emsp; &emsp;|-->Estrutura de Dados<br>
-|  &emsp; &emsp;|-->POO<br>
+|  &emsp; &emsp;|-->Programação Orientada a Objeto<br>
 |  &emsp;|-->Documento - Projeto de Extensão - COM Empresa - 2026_1.docx<br>
 |  &emsp;|-->MODELO_BANNER_FECAP_2026_1.pptx<br>
 |  &emsp;|-->README.md<br>
 |<br>
 |-->imagens<br>
-|  &emsp;|-->Logo<br>
+|  &emsp;|-->imagem_github.jpg<br>
 |  &emsp; &emsp;|-->BANNER - 4U.png<br>
 |<br>
 |-->src<br>
