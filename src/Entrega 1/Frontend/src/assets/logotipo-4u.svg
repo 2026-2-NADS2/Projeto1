@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 66" role="img" aria-labelledby="t">
+  <title id="t">4U</title>
+  <!-- Vetorização do logotipo definido na Documentação 4U.
+       Para substituir pelo arquivo oficial exportado do Figma, mantenha o mesmo nome de arquivo. -->
+  <g fill="none" stroke="#1B2A4A" stroke-width="15" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M40 9 L10 41 H48"/>
+    <path d="M40 9 V57"/>
+    <path d="M64 9 V37 A17 17 0 0 0 98 37 V9"/>
+  </g>
+  <path d="M33 47.5 A6 6 0 0 0 33.5 51" fill="none" stroke="#E8B33D" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M33.5 48 A7 7 0 0 0 39 53.5" fill="none" stroke="#0E6E85" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M71.5 38 A9.5 9.5 0 0 0 90.5 38" fill="none" stroke="#A82486" stroke-width="2.6" stroke-linecap="round"/>
+</svg>
