@@ -1,0 +1,139 @@
+/* Banner */
+.banner {
+  background: #4A5470;
+  border-radius: var(--raio);
+  color: #fff;
+  overflow: hidden;
+  min-height: 300px;
+}
+.banner__slide {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: var(--esp-5);
+  align-items: center;
+  padding: var(--esp-4) var(--esp-5);
+  min-height: 300px;
+  animation: aparecer 400ms ease;
+}
+.banner h1,
+.banner__titulo {
+  color: #fff;
+  font-size: 1.625rem;
+  max-width: 17ch;
+  margin-bottom: var(--esp-4);
+}
+.banner p { color: #E6E9F0; font-size: 0.95rem; max-width: 40ch; }
+.banner__link {
+  display: inline-block;
+  margin-top: var(--esp-2);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.5);
+}
+.banner__link:hover { color: #fff; text-decoration-color: var(--cor-alerta); }
+.banner :focus-visible { box-shadow: 0 0 0 2px #4A5470, 0 0 0 4px var(--cor-alerta); }
+
+.banner__midia { position: relative; align-self: stretch; display: flex; }
+.banner__perfil {
+  position: absolute;
+  top: 0; left: 0;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--esp-2);
+  padding: 6px 14px;
+  background: #fff;
+  color: var(--cor-marinho);
+  font-weight: 600;
+  font-size: 1.125rem;
+  border-radius: var(--raio) 0 var(--raio) 0;
+}
+.banner__perfil .icone { width: 26px; height: 26px; }
+.banner__imagem {
+  flex: 1;
+  min-height: 220px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  border-radius: var(--raio);
+  border: 2px dashed rgba(255, 255, 255, 0.45);
+  background:
+    repeating-linear-gradient(135deg, rgba(255,255,255,0.04) 0 12px, rgba(255,255,255,0.08) 12px 24px),
+    #5A6480;
+  color: #E6E9F0;
+  font-size: 0.95rem;
+}
+.banner__imagem img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--raio); }
+
+.banner__controles {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--esp-2);
+  margin-top: var(--esp-2);
+}
+.banner__pontos { display: flex; gap: 6px; }
+.banner__ponto {
+  width: 24px; height: 24px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  display: grid;
+  place-items: center;
+  border-radius: var(--raio-pill);
+}
+.banner__ponto::before {
+  content: "";
+  width: 11px; height: 11px;
+  border-radius: var(--raio-pill);
+  background: #DDD3C3;
+  transition: width var(--transicao), background var(--transicao);
+}
+.banner__ponto[aria-current="true"] { width: 32px; }
+.banner__ponto[aria-current="true"]::before { width: 24px; background: var(--cor-primaria); }
+.banner__pausa { width: 32px; min-height: 32px; color: var(--cor-texto-secundario); }
+.banner__pausa .icone { width: 14px; height: 14px; }
+
+.divisor { border: 0; border-top: 1px solid var(--cor-borda); margin: var(--esp-3) auto var(--esp-4); padding: 0; }
+
+/* Por que escolher a 4U */
+.vantagens__titulo { text-align: center; font-size: 1.75rem; color: var(--cor-texto); margin-bottom: var(--esp-2); }
+.vantagens__subtitulo { text-align: center; color: var(--cor-texto-secundario); font-size: 0.95rem; margin-bottom: var(--esp-5); }
+.vantagens__lista {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--esp-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.vantagem { padding: var(--esp-3) var(--esp-3) var(--esp-5); box-shadow: none; }
+.vantagem__icone {
+  width: 32px; height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  margin-bottom: var(--esp-3);
+}
+.vantagem__icone .icone { width: 22px; height: 22px; }
+.vantagem h3 { font-family: var(--fonte-corpo); font-weight: 600; font-size: 1.125rem; color: var(--cor-texto); max-width: 16ch; }
+.vantagem p { font-size: 0.875rem; color: var(--cor-texto-secundario); margin: 0; }
+
+/* Responsividade */
+@media (max-width: 1024px) {
+  .vantagens__lista { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--esp-3); }
+}
+@media (max-width: 760px) {
+  .banner__slide { grid-template-columns: 1fr; padding: var(--esp-4); gap: var(--esp-4); }
+  .banner h1, .banner__titulo { font-size: 1.5rem; max-width: none; margin-bottom: var(--esp-3); }
+  .banner__imagem { min-height: 180px; }
+}
+@media (max-width: 480px) {
+  .vantagens__lista { grid-template-columns: 1fr; }
+  .vantagens__titulo { font-size: 1.5rem; }
+  .vantagem { padding-bottom: var(--esp-4); }
+}
+
+/* Foto do banner */
+img.banner__imagem { width: 100%; height: 100%; object-fit: cover; border: 0; padding: 0; }
