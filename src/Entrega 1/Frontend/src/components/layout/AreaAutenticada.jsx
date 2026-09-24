@@ -49,11 +49,14 @@ export default function AreaAutenticada({ paginaAtiva, busca, children }) {
 
   const perfil = usuario.perfil;
 
+  /* Cor do menu lateral por perfil (asas da borboleta) */
+  const COR_SIDEBAR = { ADMINISTRADOR: 'sidebar--admin', PROFESSOR: 'sidebar--professor', RESPONSAVEL: 'sidebar--responsavel' };
+
   return (
     <div className={'app' + (menuAberto ? ' menu-aberto' : '')}>
       <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
-      <aside className="sidebar" id="sidebar" ref={sidebarRef}>
+      <aside className={'sidebar ' + (COR_SIDEBAR[perfil] || '')} id="sidebar" ref={sidebarRef}>
         <button type="button" className="btn btn--icone sidebar__fechar" aria-label="Fechar menu" onClick={fecharMenu}>
           <Icon nome="fechar" />
         </button>
