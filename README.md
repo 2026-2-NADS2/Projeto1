@@ -21,7 +21,7 @@ Vide tutoriais do PI.
 ## Descrição
 
 <p align="center">
-  <img src="./Imagens/imagem_github.jpg" alt="Símbolo e Logotipo do 4U" width="600">
+  <img src="./Imagens/imagem_github.jpg" alt="Símbolo e Logotipo do 4U" width="800">
 </p>
 
 O projeto 4U consiste em uma aplicação web responsiva desenvolvida para escolas de Ensino Fundamental, com o objetivo de otimizar o acompanhamento acadêmico bimestral e integrar a comunicação entre professores, gestão escolar e famílias. Por meio da plataforma, os docentes registram o desempenho de cada estudante em suas disciplinas, inserindo a média do bimestre, tags de acompanhamento e uma descrição qualitativa detalhada.Antes de chegarem aos familiares, esses registros passam por uma etapa de moderação da administração escolar, que pode revisar, ajustar, devolver para correções ou publicar as informações. Uma vez aprovados, os pais ou responsáveis conseguem visualizar de forma exclusiva os relatórios publicados dos alunos vinculados ao seu perfil, contando ainda com a facilidade de gerar e baixar o documento em PDF.
