@@ -75,7 +75,6 @@ Os dados usados são fictícios e ficam em `src/data/mock`, organizados conforme
 
 ## Estrutura
 
-```
 src/
 ├── pages/        telas
 ├── components/   componentes reutilizáveis
