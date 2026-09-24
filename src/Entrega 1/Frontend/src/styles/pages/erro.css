@@ -1,0 +1,37 @@
+.pagina-erro { display: flex; flex-direction: column; min-height: 100vh; }
+
+.erro {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--esp-5) var(--esp-3);
+}
+.erro__ilustracao { display: flex; align-items: center; gap: var(--esp-2); margin-bottom: var(--esp-4); }
+.erro__ilustracao img { width: 120px; height: auto; }
+.erro__numero {
+  font-family: var(--fonte-titulo);
+  font-size: 6rem;
+  line-height: 1;
+  color: var(--cor-marinho);
+}
+.erro h1 { font-size: 2rem; }
+.erro__texto { max-width: 48ch; color: var(--cor-texto-secundario); margin-bottom: var(--esp-4); }
+.erro__texto code {
+  font-size: 0.9em;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: var(--tint-neutro);
+  color: var(--cor-texto);
+  word-break: break-all;
+}
+.erro__acoes { display: flex; gap: var(--esp-2); flex-wrap: wrap; justify-content: center; }
+.pagina-erro .rodape-publico { margin-top: 0; }
+
+@media (max-width: 480px) {
+  .erro__numero { font-size: 4rem; }
+  .erro__ilustracao img { width: 80px; }
+  .erro__acoes .btn { width: 100%; }
+}
