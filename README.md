@@ -1,17 +1,10 @@
-```sh
-Utilize o site <https://www.toptal.com/developers/gitignore> para gerar seu arquivo gitignore e apague este campo.
-
-Vide tutoriais do PI.
-```
-
 # FECAP - Fundação de Comércio Álvares Penteado
 
 <p align="center">
 <a href= "https://www.fecap.br/"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhZPrRa89Kma0ZZogxm0pi-tCn_TLKeHGVxywp-LXAFGR3B1DPouAJYHgKZGV0XTEf4AE&usqp=CAU" alt="FECAP - Fundação de Comércio Álvares Penteado" border="0"></a>
 </p>
 
-# Nome do Projeto
-
+# Sistema Web Responsivo para Comunicação entre Escola, Professores e Responsáveis
 ## 4U
 
 ## Integrantes: <a href="https://www.linkedin.com/in/anna-paula-alves/">Anna Paula Alves Silva</a>, <a href="https://www.linkedin.com/in/dilly-martins-217176361/">Dilly Martins da Silva</a>, <a href="https://www.linkedin.com/in/laurarayssa/">Laura Rayssa Souza Araújo</a>, <a href="https://www.linkedin.com/in/rafaela-carvalho-barcos-mello-8484ba282/">Rafaela Carvalho Barcos Mello</a>
@@ -21,16 +14,12 @@ Vide tutoriais do PI.
 ## Descrição
 
 <p align="center">
-<img src="https://pix4free.org/assets/library/2021-01-20/originals/game.jpg" alt="NOME DO JOGO" border="0">
-  Game by <a href="http://www.nyphotographic.com/">Nick Youngson</a> <a rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a> <a href="http://pix4free.org/">Pix4free</a>
+  <img src="./Imagens/imagem_github.jpg" alt="Símbolo e Logotipo do 4U" width="1000">
 </p>
 
-
-De um a dois parágrafos sobre o que é seu projeto e o que ele faz.
+O projeto 4U consiste em uma aplicação web responsiva desenvolvida para escolas de Ensino Fundamental, com o objetivo de otimizar o acompanhamento acadêmico bimestral e integrar a comunicação entre professores, gestão escolar e famílias. Por meio da plataforma, os docentes registram o desempenho de cada estudante em suas disciplinas, inserindo a média do bimestre, tags de acompanhamento e uma descrição qualitativa detalhada.Antes de chegarem aos familiares, esses registros passam por uma etapa de moderação da administração escolar, que pode revisar, ajustar, devolver para correções ou publicar as informações. Uma vez aprovados, os pais ou responsáveis conseguem visualizar de forma exclusiva os relatórios publicados dos alunos vinculados ao seu perfil, contando ainda com a facilidade de gerar e baixar o documento em Excel.
 <br><br>
-Meu projeto ajuda estudantes FECAP a configurarem seus githubs.
-<br><br>
-May the force be with you!
+O projeto 4U conecta professores, administração e responsáveis através de uma plataforma web responsiva, otimizando o fluxo de informações e o monitoramento pedagógico dentro da comunidade escolar
 <br><br>
 
 ## 🛠 Estrutura de pastas
@@ -38,73 +27,76 @@ May the force be with you!
 -Raiz<br>
 |<br>
 |-->documentos<br>
-  &emsp;|-->antigos<br>
-  &emsp;|Documentação.docx<br>
-|-->executáveis<br>
-  &emsp;|-->windows<br>
-  &emsp;|-->android<br>
-  &emsp;|-->HTML<br>
+|  &emsp;|-->Entrega 1<br>
+|  &emsp; &emsp;|-->Banco de Dados<br>
+|  &emsp; &emsp;|-->Desenvolvimento Web Fullstack<br>
+|  &emsp; &emsp;|-->Design de Interface Digital<br>
+|  &emsp; &emsp;|-->Estrutura de Dados<br>
+|  &emsp; &emsp;|-->Programação Orientada a Objeto<br>
+|  &emsp;|-->Entrega 2<br>
+|  &emsp; &emsp;|-->Banco de Dados<br>
+|  &emsp; &emsp;|-->Desenvolvimento Web Fullstack<br>
+|  &emsp; &emsp;|-->Design de Interface Digital<br>
+|  &emsp; &emsp;|-->Estrutura de Dados<br>
+|  &emsp; &emsp;|-->Programação Orientada a Objeto<br>
+|  &emsp;|-->Documento - Projeto de Extensão - COM Empresa - 2026_1.docx<br>
+|  &emsp;|-->MODELO_BANNER_FECAP_2026_1.pptx<br>
+|  &emsp;|-->README.md<br>
+|<br>
 |-->imagens<br>
+|  &emsp;|-->imagem_github.jpg<br>
+|  &emsp; &emsp;|-->BANNER - 4U.png<br>
+|<br>
 |-->src<br>
-  &emsp;|-->Backend<br>
-  &emsp;|-->Frontend<br>
+|  &emsp;|-->Entrega 1<br>
+|  &emsp; &emsp;|-->Backend<br>
+|  &emsp; &emsp;&emsp;|-->src<br>
+|  &emsp; &emsp;|-->Frontend<br>
+|  &emsp; &emsp;&emsp;|-->public<br>
+|  &emsp; &emsp;&emsp;|-->src<br>
+|  &emsp; &emsp;&emsp;&emsp;|-->assets<br>
+|  &emsp; &emsp;&emsp;&emsp;|-->components<br>
+|  &emsp; &emsp;&emsp;&emsp;|-->pages<br>
+|  &emsp;|-->Entrega 2<br>
+|  &emsp; &emsp;|-->Backend<br>
+|  &emsp; &emsp;|-->Frontend<br>
+|<br>
+|.gitignore<br>
 |readme.md<br>
 
-A pasta raiz contem dois arquivos que devem ser alterados:
+## 🛠 Tecnologias e Linguagens
 
-<b>README.MD</b>: Arquivo que serve como guia e explicação geral sobre seu projeto. O mesmo que você está lendo agora.
-
-Há também 4 pastas que seguem da seguinte forma:
-
-<b>documentos</b>: Toda a documentação estará nesta pasta.
-
-<b>executáveis</b>: Binários e executáveis do projeto devem estar nesta pasta.
-
-<b>imagens</b>: Imagens do sistema
-
-<b>src</b>: Pasta que contém o código fonte.
-
-## 🛠 Instalação
-
-<b>Android:</b>
-
-Faça o Download do JOGO.apk no seu celular.
-Execute o APK e siga as instruções de seu telefone.
-
-```sh
-Coloque código do prompt de comnando se for necessário
-```
-
-<b>Windows:</b>
-
-Não há instalação! Apenas executável!
-Encontre o JOGO.exe na pasta executáveis e execute-o como qualquer outro programa.
-
-```sh
-Coloque código do prompt de comnando se for necessário
-```
-
-<b>HTML:</b>
-
-Não há instalação!
-Encontre o index.html na pasta executáveis e execute-o como uma página WEB (através de algum browser).
-
+<p align="left">
+  <img alt="HTML" title="HTML" width="35" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"/>
+  <img alt="CSS" title="CSS" width="35" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"/>
+  <img alt="JavaScript" title="JavaScript" width="35" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"/>
+  <img alt="Figma" title="Figma" width="35" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg"/>
+  <img alt="Visual Code" title="Visual Code" width="35" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg"/>
+  <img alt="" title="React 18" width="35" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg"/>
+  <img alt="" title="React Router" width="35" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/reactrouter/reactrouter-original.svg"/>
+  <img alt="" title="Vite" width="35" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vitejs/vitejs-original.svg"/>
+   <img alt="" title="MySQL" width="35" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"/>
+          
 ## 💻 Configuração para Desenvolvimento
-
-Descreva como instalar todas as dependências para desenvolvimento e como rodar um test-suite automatizado de algum tipo. Se necessário, faça isso para múltiplas plataformas.
 
 Para abrir este projeto você necessita das seguintes ferramentas:
 
--<a href="https://godotengine.org/download">GODOT</a>
+-<a href="https://code.visualstudio.com/">Visual Studio Code</a>
+Encontre na pasta de downloads e execute-o como qualquer outro programa.
+
+-<a href="https://nodejs.org">Node js</a>
+
+No terminal, do Visual Studio Code, a partir da raiz do repositório:
 
 ```sh
-make install
-npm test
-Coloque código do prompt de comnando se for necessário
+cd "src/Entrega 1/Frontend"
+npm install
+npm run dev
 ```
+Depois, abra http://localhost:5173.
 
 ## 📋 Licença/License
-Utilize o link <https://chooser-beta.creativecommons.org/> para fazer uma licença CC BY 4.0.
+<a href="https://github.com/2026-2-NADS2/Projeto1">4U</a> © 2026 by <a href="https://example.com"> Anna Paula Alves Silva, Dilly Martins da Silva, Laura Rayssa Souza Araújo e Rafaela Carvalho Barcos Mello</a> is licensed under <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International (CC BY 4.0)</a>
 
 ## 🎓 Referências
 
