@@ -83,12 +83,14 @@ Descreva como instalar todas as dependências para desenvolvimento e como rodar 
 
 Para abrir este projeto você necessita das seguintes ferramentas:
 
--<a href="https://godotengine.org/download">GODOT</a>
+-<a href="https://nodejs.org">Node js</a>
 
-```sh
-make install
-npm test
-Coloque código do prompt de comnando se for necessário
+No terminal, a partir da raiz do repositório:
+
+```bash
+cd "src/Entrega 1/Frontend"
+npm install
+npm run dev
 ```
 
 ## 📋 Licença/License
