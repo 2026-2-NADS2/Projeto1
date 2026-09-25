@@ -23,8 +23,8 @@ const SLIDES = [
     perfil: 'Professor',
     cor: 'professor',
     icone: 'professor',
-    titulo: 'O professor registra o acompanhamento do bimestre',
-    texto: 'Descrição qualitativa, média e tags para cada aluno e disciplina. O professor salva como rascunho e envia para revisão quando estiver pronto.',
+    titulo: 'Uma plataforma para acompanhar o desenvolvimento escolar',
+    texto: 'A 4U conecta professores, administração e família em um só lugar: transforma o boletim bimestral em algo que a família acompanha em tempo real, com todo o histórico de revisão da escola.',
     /* IMAGEM PERSONALIZÁVEL: banner do Professor */
     imagem: bannerProfessor
   },
@@ -32,8 +32,8 @@ const SLIDES = [
     perfil: 'Responsável',
     cor: 'responsavel',
     icone: 'usuarios',
-    titulo: 'A família acompanha o que a escola publicou',
-    texto: 'O responsável consulta os relatórios publicados dos alunos vinculados ao seu cadastro, registra ciência e gera o relatório em PDF quando quiser.',
+    titulo: 'Uma plataforma para acompanhar o desenvolvimento escolar',
+    texto: 'A 4U conecta professores, administração e família em um só lugar: transforma o boletim bimestral em algo que a família acompanha em tempo real, com todo o histórico de revisão da escola.',
     /* IMAGEM PERSONALIZÁVEL: banner do Responsável */
     imagem: bannerResponsavel
   }
