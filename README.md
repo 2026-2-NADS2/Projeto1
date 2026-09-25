@@ -87,7 +87,7 @@ Para abrir este projeto você necessita das seguintes ferramentas:
 
 No terminal, a partir da raiz do repositório:
 
-```bash
+```sh
 cd "src/Entrega 1/Frontend"
 npm install
 npm run dev
