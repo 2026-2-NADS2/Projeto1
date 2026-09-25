@@ -3,7 +3,7 @@ import Icon from '../components/Icon.jsx';
 import RodapePublico from '../components/layout/RodapePublico.jsx';
 import { useAuth } from '../contexts/AuthContext.jsx';
 import { DASHBOARD_POR_PERFIL, ROTAS } from '../utils/rotas.js';
-import logotipo from '../assets/logotipo-4u.svg';
+import logotipo from '../assets/logotipo-4u-original.png';
 import simbolo from '../assets/simbolo-4u.svg';
 import '../styles/pages/erro.css';
 

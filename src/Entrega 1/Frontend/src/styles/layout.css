@@ -69,15 +69,27 @@
   min-height: 100vh;
 }
 
-/* Menu lateral */
+/* Menu lateral — cor de cada perfil segue uma asa da borboleta */
 .sidebar {
+  /* Padrão (Administrador): asa azul marinho */
+  --sidebar-fundo: var(--cor-marinho);
+  --sidebar-texto: #fff;
+  --sidebar-texto-menu: #E3E6EC;
+  --sidebar-texto-suave: #AEB6C6;
+  --sidebar-linha: rgba(255, 255, 255, 0.12);
+  --sidebar-hover: rgba(255, 255, 255, 0.08);
+  --sidebar-borda-botao: rgba(255, 255, 255, 0.35);
+  --sidebar-ativo-texto: var(--cor-marinho);
+  --sidebar-ativo-icone: var(--cor-primaria);
+  --sidebar-foco: 0 0 0 2px var(--sidebar-fundo), 0 0 0 4px var(--cor-alerta);
+
   position: sticky;
   top: 0;
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: var(--cor-marinho);
-  color: #fff;
+  background: var(--sidebar-fundo);
+  color: var(--sidebar-texto);
   padding: var(--esp-4) var(--esp-3);
   z-index: 300;
 }
@@ -87,13 +99,13 @@
   gap: 10px;
   padding: 0 var(--esp-2) var(--esp-4);
   margin-bottom: var(--esp-3);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  color: #fff;
+  border-bottom: 1px solid var(--sidebar-linha);
+  color: var(--sidebar-texto);
   text-decoration: none;
   font-family: var(--fonte-titulo);
   font-size: 1.5rem;
 }
-.sidebar__marca:hover { color: #fff; }
+.sidebar__marca:hover { color: var(--sidebar-texto); }
 .sidebar__marca img { height: 32px; width: auto; }
 .sidebar__perfil {
   padding: 0 var(--esp-2);
@@ -102,7 +114,7 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #AEB6C6;
+  color: var(--sidebar-texto-suave);
 }
 .menu { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
 .menu__link {
@@ -114,24 +126,49 @@
   padding: 10px 12px;
   border: 1.5px solid transparent;
   border-radius: var(--raio);
-  color: #E3E6EC;
+  color: var(--sidebar-texto-menu);
   font-weight: 600;
   text-decoration: none;
   background: transparent;
   text-align: left;
 }
-.menu__link:hover { background: rgba(255, 255, 255, 0.08); color: #fff; }
+.menu__link:hover { background: var(--sidebar-hover); color: var(--sidebar-texto); }
 .menu__link[aria-current="page"] {
   background: #fff;
-  color: var(--cor-marinho);
+  color: var(--sidebar-ativo-texto);
 }
-.menu__link[aria-current="page"] .icone { color: var(--cor-primaria); }
+.menu__link[aria-current="page"] .icone { color: var(--sidebar-ativo-icone); }
 .menu__texto { display: flex; flex-direction: column; line-height: 1.25; }
-.sidebar :focus-visible { box-shadow: 0 0 0 2px var(--cor-marinho), 0 0 0 4px var(--cor-alerta); }
+.sidebar :focus-visible { box-shadow: var(--sidebar-foco); }
 
-.sidebar__rodape { margin-top: auto; padding-top: var(--esp-3); border-top: 1px solid rgba(255, 255, 255, 0.12); }
-.sidebar__sair { color: #fff; border-color: rgba(255, 255, 255, 0.35); }
-.sidebar__sair:hover { background: rgba(255, 255, 255, 0.1); }
+.sidebar__rodape { margin-top: auto; padding-top: var(--esp-3); border-top: 1px solid var(--sidebar-linha); }
+.sidebar__sair { color: var(--sidebar-texto); border-color: var(--sidebar-borda-botao); }
+.sidebar__sair:hover { background: var(--sidebar-hover); color: var(--sidebar-texto); }
+
+/* Professor: asa amarela. Texto em azul marinho para ficar legível no amarelo */
+.sidebar--professor {
+  --sidebar-fundo: var(--cor-alerta);
+  --sidebar-texto: var(--cor-marinho);
+  --sidebar-texto-menu: var(--cor-marinho);
+  --sidebar-texto-suave: #4A3A12;
+  --sidebar-linha: rgba(27, 42, 74, 0.18);
+  --sidebar-hover: rgba(27, 42, 74, 0.1);
+  --sidebar-borda-botao: rgba(27, 42, 74, 0.45);
+  --sidebar-ativo-icone: #8C6412;
+  --sidebar-foco: 0 0 0 2px var(--sidebar-fundo), 0 0 0 4px var(--cor-marinho);
+}
+
+/* Responsável: asa rosa (magenta) */
+.sidebar--responsavel {
+  --sidebar-fundo: var(--cor-magenta);
+  --sidebar-texto-menu: #FBEAF6;
+  --sidebar-texto-suave: #F3CFE8;
+  --sidebar-linha: rgba(255, 255, 255, 0.2);
+  --sidebar-hover: rgba(255, 255, 255, 0.12);
+  --sidebar-borda-botao: rgba(255, 255, 255, 0.5);
+  --sidebar-ativo-icone: var(--cor-magenta);
+  --sidebar-foco: 0 0 0 2px var(--sidebar-fundo), 0 0 0 4px #fff;
+}
 .sidebar__fechar { display: none; }
 
 /* Área principal */
@@ -202,9 +239,9 @@
     place-items: center;
     position: absolute;
     right: 10px; top: 18px;
-    color: #fff;
+    color: var(--sidebar-texto);
   }
-  .sidebar__fechar:hover { background: rgba(255, 255, 255, 0.1); }
+  .sidebar__fechar:hover { background: var(--sidebar-hover); }
   .topbar { padding: 10px var(--esp-4); }
   .topbar__menu { display: inline-grid; place-items: center; }
   .conteudo { padding: var(--esp-4); }
