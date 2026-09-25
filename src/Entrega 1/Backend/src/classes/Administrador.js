@@ -1,37 +1,47 @@
-const { ErroAplicacao } = require('../erroAplicacao');
 
 class Administrador {
-  constructor({ id, nome, email, ativo }) {
-    this.id = id;
-    this.nome = nome;
-    this.email = email;
-    this.ativo = ativo === undefined ? true : !!ativo;
+  constructor({ id = null, nome, email, ativo = true }) {
+    this._id = id; // id = usuario.id
+    this._nome = nome;
+    this._email = email;
+    this._ativo = ativo;
   }
 
+  get id() { return this._id; }
+  get nome() { return this._nome; }
+  get email() { return this._email; }
+  get ativo() { return this._ativo; }
+
   editar({ nome, email }) {
-    if (nome !== undefined) {
-      if (!nome || !nome.trim()) {
-        throw new ErroAplicacao('VALIDACAO', 'Nome do administrador é obrigatório.');
-      }
-      this.nome = nome.trim();
-    }
-    if (email !== undefined) {
-      if (!email || !email.includes('@')) {
-        throw new ErroAplicacao('VALIDACAO', 'E-mail inválido.');
-      }
-      this.email = email.trim().toLowerCase();
-    }
-    return this;
+    if (nome !== undefined) this._nome = nome;
+    if (email !== undefined) this._email = email;
   }
 
   ativar() {
-    this.ativo = true;
-    return this;
+    this._ativo = true;
   }
 
   inativar() {
-    this.ativo = false;
-    return this;
+    this._ativo = false;
+  }
+
+  toJSON() {
+    return {
+      id: this._id,
+      nome: this._nome,
+      email: this._email,
+      ativo: this._ativo
+    };
+  }
+
+  // Monta o objeto a partir de uma linha de `usuario` com perfil ADMINISTRADOR.
+  static fromRow(row) {
+    return new Administrador({
+      id: row.id,
+      nome: row.nome,
+      email: row.email,
+      ativo: !!row.ativo
+    });
   }
 }
 

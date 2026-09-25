@@ -1,5 +1,3 @@
-const { ErroAplicacao } = require('../erroAplicacao');
-
 const STATUS = {
   RASCUNHO: 'RASCUNHO',
   ENVIADO: 'ENVIADO',
@@ -9,80 +7,116 @@ const STATUS = {
   CANCELADO: 'CANCELADO'
 };
 
-const STATUS_QUE_PERMITEM_EDICAO = [STATUS.RASCUNHO, STATUS.DEVOLVIDO, STATUS.EM_REVISAO];
+const TRANSICOES_VALIDAS = {
+  RASCUNHO: [STATUS.ENVIADO, STATUS.CANCELADO],
+  ENVIADO: [STATUS.EM_REVISAO, STATUS.CANCELADO],
+  EM_REVISAO: [STATUS.PUBLICADO, STATUS.DEVOLVIDO, STATUS.CANCELADO],
+  DEVOLVIDO: [STATUS.ENVIADO, STATUS.CANCELADO],
+  PUBLICADO: [],
+  CANCELADO: []
+};
 
 class Acompanhamento {
   constructor({
-    id, aluno_id, turma_id, disciplina_id, bimestre_id, professor_id,
-    descricao, media, status, versao_atual, revisor_id, publicado_em
+    id = null,
+    aluno,
+    professor,
+    turmaId,
+    disciplinaId,
+    bimestreId,
+    descricao,
+    media = null,
+    status = STATUS.RASCUNHO,
+    versaoAtual = 1,
+    revisorId = null,
+    publicadoEm = null
   }) {
-    this.id = id;
-    this.aluno_id = aluno_id;
-    this.turma_id = turma_id;
-    this.disciplina_id = disciplina_id;
-    this.bimestre_id = bimestre_id;
-    this.professor_id = professor_id;
-    this.descricao = descricao;
-    this.media = media;
-    this.status = status || STATUS.RASCUNHO;
-    this.versao_atual = versao_atual || 1;
-    this.revisor_id = revisor_id || null;
-    this.publicado_em = publicado_em || null;
+    this._id = id;
+    this._aluno = aluno;
+    this._professor = professor;
+    this._turmaId = turmaId;
+    this._disciplinaId = disciplinaId;
+    this._bimestreId = bimestreId;
+    this._descricao = descricao;
+    this._media = media;
+    this._status = status;
+    this._versaoAtual = versaoAtual;
+    this._revisorId = revisorId;
+    this._publicadoEm = publicadoEm;
   }
+
+  get id() { return this._id; }
+  get aluno() { return this._aluno; }
+  get professor() { return this._professor; }
+  get turmaId() { return this._turmaId; }
+  get disciplinaId() { return this._disciplinaId; }
+  get bimestreId() { return this._bimestreId; }
+  get descricao() { return this._descricao; }
+  get media() { return this._media; }
+  get status() { return this._status; }
+  get versaoAtual() { return this._versaoAtual; }
+  get revisorId() { return this._revisorId; }
+  get publicadoEm() { return this._publicadoEm; }
 
   editar({ descricao, media }) {
-    if (!STATUS_QUE_PERMITEM_EDICAO.includes(this.status)) {
-      throw new ErroAplicacao(
-        'ESTADO_INVALIDO',
-        `Não é possível editar um acompanhamento com status ${this.status}.`
+    if (this._status !== STATUS.RASCUNHO && this._status !== STATUS.DEVOLVIDO) {
+      throw new Error('Só é possível editar um acompanhamento em RASCUNHO ou DEVOLVIDO.');
+    }
+    if (descricao !== undefined) this._descricao = descricao;
+    if (media !== undefined) this._media = media;
+  }
+
+  _transicionar(novoStatus) {
+    const permitidos = TRANSICOES_VALIDAS[this._status] || [];
+    if (!permitidos.includes(novoStatus)) {
+      throw new Error(
+        `Transição inválida: não é possível ir de ${this._status} para ${novoStatus}.`
       );
     }
-    if (descricao !== undefined) this.descricao = descricao;
-    if (media !== undefined) this.media = media;
-    return this;
+    this._status = novoStatus;
   }
 
-  enviar() {
-    if (![STATUS.RASCUNHO, STATUS.DEVOLVIDO].includes(this.status)) {
-      throw new ErroAplicacao('ESTADO_INVALIDO', `Não é possível enviar a partir de ${this.status}.`);
-    }
-    this.status = STATUS.ENVIADO;
-    return this;
+  enviarParaRevisao() {
+    this._transicionar(STATUS.ENVIADO);
   }
 
-  iniciarRevisao() {
-    if (this.status !== STATUS.ENVIADO) {
-      throw new ErroAplicacao('ESTADO_INVALIDO', `Não é possível iniciar revisão a partir de ${this.status}.`);
-    }
-    this.status = STATUS.EM_REVISAO;
-    return this;
+  iniciarRevisao(revisorId) {
+    this._transicionar(STATUS.EM_REVISAO);
+    if (revisorId !== undefined) this._revisorId = revisorId;
   }
 
   devolver() {
-    if (this.status !== STATUS.EM_REVISAO) {
-      throw new ErroAplicacao('ESTADO_INVALIDO', `Não é possível devolver a partir de ${this.status}.`);
-    }
-    this.status = STATUS.DEVOLVIDO;
-    return this;
+    this._transicionar(STATUS.DEVOLVIDO);
   }
 
   publicar(revisorId) {
-    if (this.status !== STATUS.EM_REVISAO) {
-      throw new ErroAplicacao('ESTADO_INVALIDO', `Não é possível publicar a partir de ${this.status}.`);
-    }
-    this.status = STATUS.PUBLICADO;
-    this.revisor_id = revisorId;
-    this.publicado_em = new Date();
-    return this;
+    this._transicionar(STATUS.PUBLICADO);
+    if (revisorId !== undefined) this._revisorId = revisorId;
+    this._publicadoEm = new Date();
   }
 
   cancelar() {
-    if ([STATUS.PUBLICADO, STATUS.CANCELADO].includes(this.status)) {
-      throw new ErroAplicacao('ESTADO_INVALIDO', `Não é possível cancelar a partir de ${this.status}.`);
-    }
-    this.status = STATUS.CANCELADO;
-    return this;
+    this._transicionar(STATUS.CANCELADO);
+  }
+
+  toJSON() {
+    return {
+      id: this._id,
+      aluno: this._aluno ? this._aluno.toJSON() : null,
+      professor: this._professor ? this._professor.toJSON() : null,
+      turmaId: this._turmaId,
+      disciplinaId: this._disciplinaId,
+      bimestreId: this._bimestreId,
+      descricao: this._descricao,
+      media: this._media,
+      status: this._status,
+      versaoAtual: this._versaoAtual,
+      revisorId: this._revisorId,
+      publicadoEm: this._publicadoEm
+    };
   }
 }
 
-module.exports = { Acompanhamento, STATUS };
+Acompanhamento.STATUS = STATUS;
+
+module.exports = Acompanhamento;

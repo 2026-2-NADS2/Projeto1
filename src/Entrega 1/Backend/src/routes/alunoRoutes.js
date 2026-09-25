@@ -1,13 +1,12 @@
 const express = require('express');
-const controller = require('../controllers/alunoController');
-
 const router = express.Router();
+const controller = require('../controllers/alunoController');
+const exigirAdministrador = require('../middlewares/exigirAdministrador');
 
+router.post('/', exigirAdministrador, controller.criar);
 router.get('/', controller.listar);
-router.get('/:id', controller.buscar);
-router.post('/', controller.criar);
-router.put('/:id', controller.atualizar);
-router.patch('/:id/ativar', controller.ativar);
+router.get('/:id', controller.buscarPorId);
+router.put('/:id', controller.editar);
 router.patch('/:id/inativar', controller.inativar);
 
 module.exports = router;

@@ -1,194 +1,335 @@
+const pool = require('../database/connection');
 const Aluno = require('./Aluno');
 const Professor = require('./Professor');
 const Administrador = require('./Administrador');
-const { Acompanhamento } = require('./Acompanhamento');
-
-const { ErroAplicacao } = require('../erroAplicacao');
-
-const alunoRepo = require('../repositories/alunoRepository');
-const professorRepo = require('../repositories/professorRepository');
-const usuarioRepo = require('../repositories/usuarioRepository');
-const acompanhamentoRepo = require('../repositories/acompanhamentoRepository');
+const Acompanhamento = require('./Acompanhamento');
 
 class Sistema {
+  constructor(dbPool = pool) {
+    this._db = dbPool;
+  }
 
-  async criarAluno(dados) {
-    const aluno = new Aluno({ ...dados, id: undefined });
-    aluno.editar(dados);
-    return alunoRepo.criar(aluno);
+  async criarAluno({ nome, dataNascimento, matricula, observacoes }) {
+    if (!nome) throw new Error('Nome do aluno é obrigatório.');
+    if (!matricula) throw new Error('Matrícula do aluno é obrigatória.');
+
+    const aluno = new Aluno({ nome, dataNascimento, matricula, observacoes });
+
+    const [resultado] = await this._db.query(
+      `INSERT INTO aluno (nome, data_nascimento, matricula, observacoes, ativo)
+       VALUES (?, ?, ?, ?, ?)`,
+      [aluno.nome, aluno.dataNascimento, aluno.matricula, aluno.observacoes, aluno.ativo]
+    );
+
+    return this.buscarAlunoPorId(resultado.insertId);
   }
 
   async listarAlunos() {
-    return alunoRepo.listar();
+    const [linhas] = await this._db.query('SELECT * FROM aluno ORDER BY id');
+    return linhas.map(Aluno.fromRow);
   }
 
   async buscarAlunoPorId(id) {
-    const registro = await alunoRepo.buscarPorId(id);
-    if (!registro) throw new ErroAplicacao('NAO_ENCONTRADO', 'Aluno não encontrado.', 404);
-    return registro;
+    const [linhas] = await this._db.query('SELECT * FROM aluno WHERE id = ?', [id]);
+    if (linhas.length === 0) return null;
+    return Aluno.fromRow(linhas[0]);
   }
 
   async editarAluno(id, dados) {
-    const registro = await this.buscarAlunoPorId(id);
-    const aluno = new Aluno(registro);
+    const aluno = await this.buscarAlunoPorId(id);
+    if (!aluno) throw new Error('Aluno não encontrado.');
+
     aluno.editar(dados);
-    return alunoRepo.atualizar(id, aluno);
+
+    await this._db.query(
+      `UPDATE aluno SET nome = ?, data_nascimento = ?, matricula = ?, observacoes = ?
+       WHERE id = ?`,
+      [aluno.nome, aluno.dataNascimento, aluno.matricula, aluno.observacoes, id]
+    );
+
+    return this.buscarAlunoPorId(id);
   }
 
   async ativarAluno(id) {
-    const registro = await this.buscarAlunoPorId(id);
-    const aluno = new Aluno(registro).ativar();
-    return alunoRepo.atualizar(id, aluno);
+    return this._alterarAtivoAluno(id, true);
   }
 
   async inativarAluno(id) {
-    const registro = await this.buscarAlunoPorId(id);
-    const aluno = new Aluno(registro).inativar();
-    return alunoRepo.atualizar(id, aluno);
+    return this._alterarAtivoAluno(id, false);
   }
 
-  async criarProfessor({ nome, email, registro }) {
-    if (!nome || !email || !registro) {
-      throw new ErroAplicacao('VALIDACAO', 'Nome, e-mail e registro são obrigatórios.');
+  async _alterarAtivoAluno(id, ativo) {
+    const aluno = await this.buscarAlunoPorId(id);
+    if (!aluno) throw new Error('Aluno não encontrado.');
+    ativo ? aluno.ativar() : aluno.inativar();
+    await this._db.query('UPDATE aluno SET ativo = ? WHERE id = ?', [aluno.ativo, id]);
+    return this.buscarAlunoPorId(id);
+  }
+
+  _selectProfessorBase() {
+    return `
+      SELECT p.id AS professor_id, p.registro AS registro, p.usuario_id AS usuario_id,
+             u.nome AS nome, u.email AS email, u.ativo AS ativo
+      FROM professor p
+      INNER JOIN usuario u ON u.id = p.usuario_id
+    `;
+  }
+
+  async criarProfessor({ nome, registro, email }) {
+    if (!nome) throw new Error('Nome do professor é obrigatório.');
+    if (!registro) throw new Error('Registro do professor é obrigatório.');
+    if (!email) throw new Error('E-mail do professor é obrigatório.');
+
+    const conexao = await this._db.getConnection();
+    try {
+      await conexao.beginTransaction();
+
+      const [usuarioResultado] = await conexao.query(
+        `INSERT INTO usuario (nome, email, senha_hash, perfil, ativo)
+         VALUES (?, ?, NULL, 'PROFESSOR', TRUE)`,
+        [nome, email]
+      );
+      
+      const [professorResultado] = await conexao.query(
+        `INSERT INTO professor (usuario_id, registro) VALUES (?, ?)`,
+        [usuarioResultado.insertId, registro]
+      );
+
+      await conexao.commit();
+      return this.buscarProfessorPorId(professorResultado.insertId);
+    } catch (erro) {
+      await conexao.rollback();
+      throw erro;
+    } finally {
+      conexao.release();
     }
-    const usuario = await usuarioRepo.criar({ nome, email, perfil: 'PROFESSOR' });
-    return professorRepo.criar({ usuario_id: usuario.id, registro });
   }
 
   async listarProfessores() {
-    return professorRepo.listar();
+    const [linhas] = await this._db.query(`${this._selectProfessorBase()} ORDER BY p.id`);
+    return linhas.map(Professor.fromRow);
   }
 
   async buscarProfessorPorId(id) {
-    const registro = await professorRepo.buscarPorId(id);
-    if (!registro) throw new ErroAplicacao('NAO_ENCONTRADO', 'Professor não encontrado.', 404);
-    return registro;
+    const [linhas] = await this._db.query(`${this._selectProfessorBase()} WHERE p.id = ?`, [id]);
+    if (linhas.length === 0) return null;
+    return Professor.fromRow(linhas[0]);
   }
 
   async editarProfessor(id, dados) {
-    const registro = await this.buscarProfessorPorId(id);
-    const professor = new Professor(registro);
+    const professor = await this.buscarProfessorPorId(id);
+    if (!professor) throw new Error('Professor não encontrado.');
+
     professor.editar(dados);
-    return professorRepo.atualizar(id, professor);
+
+    await this._db.query('UPDATE professor SET registro = ? WHERE id = ?', [professor.registro, id]);
+    await this._db.query('UPDATE usuario SET nome = ? WHERE id = ?', [professor.nome, professor.usuarioId]);
+
+    return this.buscarProfessorPorId(id);
   }
 
   async ativarProfessor(id) {
-    const registro = await this.buscarProfessorPorId(id);
-    const professor = new Professor(registro).ativar();
-    return professorRepo.atualizar(id, professor);
+    return this._alterarAtivoProfessor(id, true);
   }
 
   async inativarProfessor(id) {
-    const registro = await this.buscarProfessorPorId(id);
-    const professor = new Professor(registro).inativar();
-    return professorRepo.atualizar(id, professor);
+    return this._alterarAtivoProfessor(id, false);
+  }
+
+  async _alterarAtivoProfessor(id, ativo) {
+    const professor = await this.buscarProfessorPorId(id);
+    if (!professor) throw new Error('Professor não encontrado.');
+    await this._db.query('UPDATE usuario SET ativo = ? WHERE id = ?', [ativo, professor.usuarioId]);
+    return this.buscarProfessorPorId(id);
   }
 
   async criarAdministrador({ nome, email }) {
-    if (!nome || !email) {
-      throw new ErroAplicacao('VALIDACAO', 'Nome e e-mail são obrigatórios.');
-    }
-    const usuario = await usuarioRepo.criar({ nome, email, perfil: 'ADMINISTRADOR' });
-    return new Administrador(usuario);
-  }
+    if (!nome) throw new Error('Nome do administrador é obrigatório.');
+    if (!email) throw new Error('E-mail do administrador é obrigatório.');
 
-  async listarAdministradores() {
-    return usuarioRepo.listarAdministradores();
+    const [resultado] = await this._db.query(
+      `INSERT INTO usuario (nome, email, senha_hash, perfil, ativo)
+       VALUES (?, ?, NULL, 'ADMINISTRADOR', TRUE)`,
+      [nome, email]
+    );
+
+    return this.buscarAdministradorPorId(resultado.insertId);
   }
 
   async buscarAdministradorPorId(id) {
-    const registro = await usuarioRepo.buscarPorId(id);
-    if (!registro || registro.perfil !== 'ADMINISTRADOR') {
-      throw new ErroAplicacao('NAO_ENCONTRADO', 'Administrador não encontrado.', 404);
-    }
-    return registro;
+    const [linhas] = await this._db.query(
+      `SELECT * FROM usuario WHERE id = ? AND perfil = 'ADMINISTRADOR'`,
+      [id]
+    );
+    if (linhas.length === 0) return null;
+    return Administrador.fromRow(linhas[0]);
   }
 
-  async editarAdministrador(id, dados) {
-    const registro = await this.buscarAdministradorPorId(id);
-    const administrador = new Administrador(registro);
-    administrador.editar(dados);
-    return usuarioRepo.atualizar(id, administrador);
+  async _existeNaTabela(tabela, id) {
+    const [linhas] = await this._db.query(`SELECT id FROM ${tabela} WHERE id = ?`, [id]);
+    return linhas.length > 0;
   }
 
-  async ativarAdministrador(id) {
-    await this.buscarAdministradorPorId(id);
-    return usuarioRepo.alterarAtivo(id, true);
-  }
-
-  async inativarAdministrador(id) {
-    await this.buscarAdministradorPorId(id);
-    return usuarioRepo.alterarAtivo(id, false);
-  }
-
-  async _carregarAcompanhamento(id) {
-    const registro = await acompanhamentoRepo.buscarPorId(id);
-    if (!registro) throw new ErroAplicacao('NAO_ENCONTRADO', 'Acompanhamento não encontrado.', 404);
-    return { registro, dominio: new Acompanhamento(registro) };
-  }
-
-  async criarAcompanhamento(dados, usuarioLogadoId) {
-    const { aluno_id, turma_id, disciplina_id, bimestre_id, professor_id, descricao, media } = dados;
-    if (!aluno_id || !turma_id || !disciplina_id || !bimestre_id || !professor_id) {
-      throw new ErroAplicacao('VALIDACAO', 'aluno, turma, disciplina, bimestre e professor são obrigatórios.');
+  async criarAcompanhamento({ alunoId, professorId, turmaId, disciplinaId, bimestreId, descricao, media }) {
+    if (!descricao) throw new Error('Descrição do acompanhamento é obrigatória.');
+    if (media !== undefined && media !== null && (media < 0 || media > 10)) {
+      throw new Error('Média deve estar entre 0 e 10.');
     }
 
-    const acompanhamento = new Acompanhamento({ aluno_id, turma_id, disciplina_id, bimestre_id, professor_id });
-    acompanhamento.editar({ descricao, media });
+    const aluno = await this.buscarAlunoPorId(alunoId);
+    if (!aluno) throw new Error('Aluno informado não existe.');
 
-    const id = await acompanhamentoRepo.criar(acompanhamento);
-    await acompanhamentoRepo.registrarHistorico({
-      acompanhamento_id: id, usuario_id: usuarioLogadoId, status_anterior: null, status_novo: 'RASCUNHO'
+    const professor = await this.buscarProfessorPorId(professorId);
+    if (!professor) throw new Error('Professor informado não existe.');
+
+    if (!(await this._existeNaTabela('turma', turmaId))) {
+      throw new Error('Turma informada não existe. Cadastre a turma antes (fora do escopo desta entrega).');
+    }
+    if (!(await this._existeNaTabela('disciplina', disciplinaId))) {
+      throw new Error('Disciplina informada não existe.');
+    }
+    if (!(await this._existeNaTabela('bimestre', bimestreId))) {
+      throw new Error('Bimestre informado não existe.');
+    }
+
+    const acompanhamento = new Acompanhamento({
+      aluno,
+      professor,
+      turmaId,
+      disciplinaId,
+      bimestreId,
+      descricao,
+      media: media ?? null,
+      status: Acompanhamento.STATUS.RASCUNHO,
+      versaoAtual: 1
     });
-    return this._carregarAcompanhamento(id).then((r) => r.registro);
+
+    try {
+      const [resultado] = await this._db.query(
+        `INSERT INTO acompanhamento
+          (aluno_id, professor_id, turma_id, disciplina_id, bimestre_id,
+           descricao, media, status, versao_atual)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        [
+          aluno.id,
+          professor.id,
+          turmaId,
+          disciplinaId,
+          bimestreId,
+          acompanhamento.descricao,
+          acompanhamento.media,
+          acompanhamento.status,
+          acompanhamento.versaoAtual
+        ]
+      );
+      return this.buscarAcompanhamentoPorId(resultado.insertId);
+    } catch (erro) {
+      if (erro.code === 'ER_DUP_ENTRY') {
+        throw new Error('Já existe um acompanhamento para este aluno, disciplina e bimestre.');
+      }
+      throw erro;
+    }
   }
 
   async listarAcompanhamentos() {
-    return acompanhamentoRepo.listar();
+    const [linhas] = await this._db.query('SELECT * FROM acompanhamento ORDER BY id');
+    return Promise.all(linhas.map((linha) => this._montarAcompanhamento(linha)));
   }
 
   async buscarAcompanhamentoPorId(id) {
-    const { registro } = await this._carregarAcompanhamento(id);
-    return registro;
+    const [linhas] = await this._db.query('SELECT * FROM acompanhamento WHERE id = ?', [id]);
+    if (linhas.length === 0) return null;
+    return this._montarAcompanhamento(linhas[0]);
+  }
+
+  async _montarAcompanhamento(linha) {
+    const aluno = await this.buscarAlunoPorId(linha.aluno_id);
+    const professor = await this.buscarProfessorPorId(linha.professor_id);
+
+    return new Acompanhamento({
+      id: linha.id,
+      aluno,
+      professor,
+      turmaId: linha.turma_id,
+      disciplinaId: linha.disciplina_id,
+      bimestreId: linha.bimestre_id,
+      descricao: linha.descricao,
+      media: linha.media !== null ? Number(linha.media) : null,
+      status: linha.status,
+      versaoAtual: linha.versao_atual,
+      revisorId: linha.revisor_id,
+      publicadoEm: linha.publicado_em
+    });
+  }
+
+  async _salvarAcompanhamento(acompanhamento) {
+    await this._db.query(
+      `UPDATE acompanhamento
+       SET descricao = ?, media = ?, status = ?, versao_atual = ?, revisor_id = ?, publicado_em = ?
+       WHERE id = ?`,
+      [
+        acompanhamento.descricao,
+        acompanhamento.media,
+        acompanhamento.status,
+        acompanhamento.versaoAtual,
+        acompanhamento.revisorId,
+        acompanhamento.publicadoEm,
+        acompanhamento.id
+      ]
+    );
   }
 
   async editarAcompanhamento(id, dados) {
-    const { dominio } = await this._carregarAcompanhamento(id);
-    dominio.editar(dados);
-    await acompanhamentoRepo.atualizar(id, dominio);
+    const acompanhamento = await this.buscarAcompanhamentoPorId(id);
+    if (!acompanhamento) throw new Error('Acompanhamento não encontrado.');
+    if (dados.media !== undefined && dados.media !== null && (dados.media < 0 || dados.media > 10)) {
+      throw new Error('Média deve estar entre 0 e 10.');
+    }
+
+    acompanhamento.editar(dados);
+    await this._salvarAcompanhamento(acompanhamento);
     return this.buscarAcompanhamentoPorId(id);
   }
 
-  async _transicionar(id, usuarioLogadoId, aplicarTransicao) {
-    const { dominio } = await this._carregarAcompanhamento(id);
-    const statusAnterior = dominio.status;
-    aplicarTransicao(dominio);
-    await acompanhamentoRepo.atualizar(id, dominio);
-    await acompanhamentoRepo.registrarHistorico({
-      acompanhamento_id: id, usuario_id: usuarioLogadoId, status_anterior: statusAnterior, status_novo: dominio.status
-    });
+  async enviarAcompanhamento(id) {
+    const acompanhamento = await this.buscarAcompanhamentoPorId(id);
+    if (!acompanhamento) throw new Error('Acompanhamento não encontrado.');
+    acompanhamento.enviarParaRevisao();
+    await this._salvarAcompanhamento(acompanhamento);
     return this.buscarAcompanhamentoPorId(id);
   }
 
-  async enviarAcompanhamento(id, usuarioLogadoId) {
-    return this._transicionar(id, usuarioLogadoId, (a) => a.enviar());
+  async iniciarRevisao(id, revisorId) {
+    const acompanhamento = await this.buscarAcompanhamentoPorId(id);
+    if (!acompanhamento) throw new Error('Acompanhamento não encontrado.');
+    acompanhamento.iniciarRevisao(revisorId);
+    await this._salvarAcompanhamento(acompanhamento);
+    return this.buscarAcompanhamentoPorId(id);
   }
 
-  async iniciarRevisao(id, usuarioLogadoId) {
-    return this._transicionar(id, usuarioLogadoId, (a) => a.iniciarRevisao());
+  async devolverAcompanhamento(id) {
+    const acompanhamento = await this.buscarAcompanhamentoPorId(id);
+    if (!acompanhamento) throw new Error('Acompanhamento não encontrado.');
+    acompanhamento.devolver();
+    await this._salvarAcompanhamento(acompanhamento);
+    return this.buscarAcompanhamentoPorId(id);
   }
 
-  async devolverAcompanhamento(id, usuarioLogadoId) {
-    return this._transicionar(id, usuarioLogadoId, (a) => a.devolver());
+  async publicarAcompanhamento(id, revisorId) {
+    const acompanhamento = await this.buscarAcompanhamentoPorId(id);
+    if (!acompanhamento) throw new Error('Acompanhamento não encontrado.');
+    acompanhamento.publicar(revisorId);
+    await this._salvarAcompanhamento(acompanhamento);
+    return this.buscarAcompanhamentoPorId(id);
   }
 
-  async publicarAcompanhamento(id, usuarioLogadoId) {
-    return this._transicionar(id, usuarioLogadoId, (a) => a.publicar(usuarioLogadoId));
-  }
-
-  async cancelarAcompanhamento(id, usuarioLogadoId) {
-    return this._transicionar(id, usuarioLogadoId, (a) => a.cancelar());
+  async cancelarAcompanhamento(id) {
+    const acompanhamento = await this.buscarAcompanhamentoPorId(id);
+    if (!acompanhamento) throw new Error('Acompanhamento não encontrado.');
+    acompanhamento.cancelar();
+    await this._salvarAcompanhamento(acompanhamento);
+    return this.buscarAcompanhamentoPorId(id);
   }
 }
 
-module.exports = new Sistema();
+module.exports = Sistema;
