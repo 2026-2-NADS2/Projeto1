@@ -19,7 +19,7 @@ Perfis: **Administrador**, **Professor** e **Responsável**.
 ## Tecnologias
 
 - HTML5
-- SS3
+- CSS3
 - JavaScript
 - React 18
 - React Router
