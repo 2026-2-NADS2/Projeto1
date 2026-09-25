@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from '../Icon.jsx';
 import LinkInativo from './LinkInativo.jsx';
-import logotipo from '../../assets/logotipo-4u.svg';
+import logotipo from '../../assets/logotipo-4u-original.png';
 import { ROTAS } from '../../utils/rotas.js';
 
 export default function CabecalhoPublico() {
