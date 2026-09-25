@@ -49,7 +49,7 @@ Depois, abra http://localhost:5173.
 | Cadastros | `/admin/cadastros` |
 | Dashboard do Professor | `/professor` |
 | Dashboard do Responsável | `/responsavel` |
-| Página não encontrada (404) | qualquer outra rota |
+| Página não encontrada (404) | qualquer outra rota | para testar, acesse: http://localhost:5173/contato
 
 ## Usuários para teste
 

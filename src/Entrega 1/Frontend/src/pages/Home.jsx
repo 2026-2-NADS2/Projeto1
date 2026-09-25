@@ -4,6 +4,9 @@ import CabecalhoPublico from '../components/layout/CabecalhoPublico.jsx';
 import RodapePublico from '../components/layout/RodapePublico.jsx';
 import LinkInativo from '../components/layout/LinkInativo.jsx';
 import '../styles/pages/home.css';
+import bannerAdmin from '../assets/banner-admin.png';
+import bannerProfessor from '../assets/banner-professor.jpg';
+import bannerResponsavel from '../assets/banner-responsavel.png';
 
 /* Destaques do banner */
 const SLIDES = [
@@ -13,23 +16,23 @@ const SLIDES = [
     titulo: 'Uma plataforma para acompanhar o desenvolvimento escolar',
     texto: 'A 4U conecta professores, administração e família em um só lugar: transforma o boletim bimestral em algo que a família acompanha em tempo real, com todo o histórico de revisão da escola.',
     /* IMAGEM PERSONALIZÁVEL: banner do Administrador */
-    imagem: null
+    imagem: bannerAdmin
   },
   {
     perfil: 'Professor',
     icone: 'professor',
-    titulo: 'O professor registra o acompanhamento do bimestre',
-    texto: 'Descrição qualitativa, média e tags para cada aluno e disciplina. O professor salva como rascunho e envia para revisão quando estiver pronto.',
+    titulo: 'Uma plataforma para acompanhar o desenvolvimento escolar',
+    texto: 'A 4U conecta professores, administração e família em um só lugar: transforma o boletim bimestral em algo que a família acompanha em tempo real, com todo o histórico de revisão da escola.',
     /* IMAGEM PERSONALIZÁVEL: banner do Professor */
-    imagem: null
+    imagem: bannerProfessor
   },
   {
     perfil: 'Responsável',
     icone: 'usuarios',
-    titulo: 'A família acompanha o que a escola publicou',
-    texto: 'O responsável consulta os relatórios publicados dos alunos vinculados ao seu cadastro, registra ciência e gera o relatório em PDF quando quiser.',
+    titulo: 'Uma plataforma para acompanhar o desenvolvimento escolar',
+    texto: 'A 4U conecta professores, administração e família em um só lugar: transforma o boletim bimestral em algo que a família acompanha em tempo real, com todo o histórico de revisão da escola.',
     /* IMAGEM PERSONALIZÁVEL: banner do Responsável */
-    imagem: null
+    imagem: bannerResponsavel
   }
 ];
 
