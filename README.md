@@ -64,9 +64,7 @@ O projeto 4U conecta professores, administração e responsáveis através de um
 |.gitignore<br>
 |readme.md<br>
 
-## 🛠 Instalação
-
-<b>HTML:</b>
+## 🛠 Tecnologias e Linguagens
 
 <p align="left">
   <img alt="HTML" title="HTML" width="35" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"/>
@@ -82,6 +80,9 @@ O projeto 4U conecta professores, administração e responsáveis através de um
 ## 💻 Configuração para Desenvolvimento
 
 Para abrir este projeto você necessita das seguintes ferramentas:
+
+-<a href="https://code.visualstudio.com/">Visual Studio Code</a>
+Encontre na pasta de downloads e execute-o como qualquer outro programa.
 
 -<a href="https://nodejs.org">Node js</a>
 
