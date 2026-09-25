@@ -10,10 +10,7 @@ const professorRepo = require('../repositories/professorRepository');
 const usuarioRepo = require('../repositories/usuarioRepository');
 const acompanhamentoRepo = require('../repositories/acompanhamentoRepository');
 
-// Sistema é a classe principal: integra Aluno, Professor, Administrador e
-// Acompanhamento, orquestrando a interação entre elas e o banco de dados.
 class Sistema {
-  // ---------- ALUNOS ----------
 
   async criarAluno(dados) {
     const aluno = new Aluno({ ...dados, id: undefined });
@@ -49,8 +46,6 @@ class Sistema {
     const aluno = new Aluno(registro).inativar();
     return alunoRepo.atualizar(id, aluno);
   }
-
-  // ---------- PROFESSORES ----------
 
   async criarProfessor({ nome, email, registro }) {
     if (!nome || !email || !registro) {
@@ -89,10 +84,6 @@ class Sistema {
     return professorRepo.atualizar(id, professor);
   }
 
-  // ---------- ADMINISTRADORES ----------
-  // A classe Administrador é um perfil da tabela usuario (não existe tabela
-  // "administrador" separada), conforme o Dicionário de Dados do projeto.
-
   async criarAdministrador({ nome, email }) {
     if (!nome || !email) {
       throw new ErroAplicacao('VALIDACAO', 'Nome e e-mail são obrigatórios.');
@@ -129,8 +120,6 @@ class Sistema {
     await this.buscarAdministradorPorId(id);
     return usuarioRepo.alterarAtivo(id, false);
   }
-
-  // ---------- ACOMPANHAMENTOS ----------
 
   async _carregarAcompanhamento(id) {
     const registro = await acompanhamentoRepo.buscarPorId(id);
