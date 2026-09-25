@@ -137,3 +137,38 @@
 
 /* Foto do banner */
 img.banner__imagem { width: 100%; height: 100%; object-fit: cover; border: 0; padding: 0; }
+
+/* Cor de cada banner, seguindo as asas da borboleta */
+.banner__slide {
+  --banner-fundo: #4A5470;          /* Administrador: azul */
+  --banner-texto: #fff;
+  --banner-texto-suave: #E6E9F0;
+  --banner-destaque: var(--cor-alerta);
+  background: var(--banner-fundo);
+  color: var(--banner-texto);
+}
+.banner__slide--professor {        /* Professor: amarelo, com texto azul marinho para ficar legível */
+  --banner-fundo: var(--cor-alerta);
+  --banner-texto: var(--cor-marinho);
+  --banner-texto-suave: #2A2F3A;
+  --banner-destaque: var(--cor-marinho);
+}
+.banner__slide--responsavel {      /* Responsável: rosa (magenta) */
+  --banner-fundo: var(--cor-magenta);
+  --banner-texto-suave: #FBEAF6;
+  --banner-destaque: #fff;
+}
+.banner__slide h1,
+.banner__slide .banner__titulo,
+.banner__slide .banner__link,
+.banner__slide .banner__link:hover { color: var(--banner-texto); }
+.banner__slide p { color: var(--banner-texto-suave); }
+.banner__slide .banner__link:hover { text-decoration-color: var(--banner-destaque); }
+.banner__slide :focus-visible { box-shadow: 0 0 0 2px var(--banner-fundo), 0 0 0 4px var(--banner-destaque); }
+.banner__slide--professor .banner__link { text-decoration-color: rgba(27, 42, 74, 0.5); }
+.banner__slide--professor .banner__imagem,
+.banner__slide--responsavel .banner__imagem {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: currentColor;
+  color: var(--banner-texto);
+}

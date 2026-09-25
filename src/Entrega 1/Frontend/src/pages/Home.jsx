@@ -6,12 +6,13 @@ import LinkInativo from '../components/layout/LinkInativo.jsx';
 import '../styles/pages/home.css';
 import bannerAdmin from '../assets/banner-admin.png';
 import bannerProfessor from '../assets/banner-professor.jpg';
-import bannerResponsavel from '../assets/banner-responsavel.png';
+import bannerResponsavel from '../assets/banner-responsavel.jpg';
 
 /* Destaques do banner */
 const SLIDES = [
   {
     perfil: 'Administrador',
+    cor: 'admin',
     icone: 'engrenagem',
     titulo: 'Uma plataforma para acompanhar o desenvolvimento escolar',
     texto: 'A 4U conecta professores, administração e família em um só lugar: transforma o boletim bimestral em algo que a família acompanha em tempo real, com todo o histórico de revisão da escola.',
@@ -20,17 +21,19 @@ const SLIDES = [
   },
   {
     perfil: 'Professor',
+    cor: 'professor',
     icone: 'professor',
-    titulo: 'Uma plataforma para acompanhar o desenvolvimento escolar',
-    texto: 'A 4U conecta professores, administração e família em um só lugar: transforma o boletim bimestral em algo que a família acompanha em tempo real, com todo o histórico de revisão da escola.',
+    titulo: 'O professor registra o acompanhamento do bimestre',
+    texto: 'Descrição qualitativa, média e tags para cada aluno e disciplina. O professor salva como rascunho e envia para revisão quando estiver pronto.',
     /* IMAGEM PERSONALIZÁVEL: banner do Professor */
     imagem: bannerProfessor
   },
   {
     perfil: 'Responsável',
+    cor: 'responsavel',
     icone: 'usuarios',
-    titulo: 'Uma plataforma para acompanhar o desenvolvimento escolar',
-    texto: 'A 4U conecta professores, administração e família em um só lugar: transforma o boletim bimestral em algo que a família acompanha em tempo real, com todo o histórico de revisão da escola.',
+    titulo: 'A família acompanha o que a escola publicou',
+    texto: 'O responsável consulta os relatórios publicados dos alunos vinculados ao seu cadastro, registra ciência e gera o relatório em PDF quando quiser.',
     /* IMAGEM PERSONALIZÁVEL: banner do Responsável */
     imagem: bannerResponsavel
   }
@@ -53,7 +56,7 @@ function Carrossel() {
   /* Troca automática a cada 7 s */
   useEffect(() => {
     if (pausado || emFoco) return undefined;
-    const timer = setInterval(() => setAtual((a) => (a + 1) % SLIDES.length), 7000);
+    const timer = setInterval(() => setAtual((a) => (a + 1) % SLIDES.length), 3000);
     return () => clearInterval(timer);
   }, [pausado, emFoco]);
 
@@ -72,7 +75,7 @@ function Carrossel() {
         {SLIDES.map((slide, i) => (
           <article
             key={slide.perfil}
-            className="banner__slide"
+            className={'banner__slide banner__slide--' + slide.cor}
             aria-roledescription="slide"
             aria-label={`${i + 1} de ${SLIDES.length}: ${slide.perfil}`}
             hidden={i !== atual}
