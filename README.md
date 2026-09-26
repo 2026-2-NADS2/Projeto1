@@ -45,7 +45,6 @@ O projeto 4U conecta professores, administração e responsáveis através de um
 |<br>
 |-->imagens<br>
 |  &emsp;|-->imagem_github.jpg<br>
-|  &emsp; &emsp;|-->BANNER - 4U.png<br>
 |<br>
 |-->src<br>
 |  &emsp;|-->Entrega 1<br>
