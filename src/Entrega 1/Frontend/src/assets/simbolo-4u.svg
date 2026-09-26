@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 306 201" role="img" aria-labelledby="t">
+  <title id="t">Símbolo 4U — borboleta</title>
+  <!-- Vetorização do símbolo definido na Documentação 4U (Símbolo + Logotipo).
+       Para substituir pelo arquivo oficial exportado do Figma, mantenha o mesmo nome de arquivo. -->
+  <path d="M146 38 C132 16 112 8 90 10" fill="none" stroke="#E6DFD3" stroke-width="7" stroke-linecap="round"/>
+  <path d="M160 38 C174 16 194 8 216 10" fill="none" stroke="#E6DFD3" stroke-width="7" stroke-linecap="round"/>
+  <ellipse cx="92" cy="86" rx="76" ry="37" transform="rotate(-12 92 86)" fill="#1B2A4A"/>
+  <ellipse cx="216" cy="88" rx="72" ry="35" transform="rotate(14 216 88)" fill="#E8B33D"/>
+  <ellipse cx="116" cy="160" rx="54" ry="32" transform="rotate(10 116 160)" fill="#0E6E85"/>
+  <ellipse cx="204" cy="160" rx="56" ry="32" transform="rotate(-12 204 160)" fill="#A82486"/>
+  <rect x="141" y="50" width="24" height="148" rx="12" fill="#E6DFD3"/>
+  <ellipse cx="153" cy="46" rx="20" ry="15" fill="#E6DFD3"/>
+</svg>

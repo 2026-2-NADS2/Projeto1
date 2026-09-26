@@ -1,0 +1,37 @@
+/* DADOS FICTÍCIOS */
+const usuario = [
+    {"id": 1, "nome": "Marina Duarte", "email": "admin@escola4u.test", "perfil": "ADMINISTRADOR", "ativo": true},
+    {"id": 2, "nome": "Carlos Menezes", "email": "professor@escola4u.test", "perfil": "PROFESSOR", "ativo": true},
+    {"id": 3, "nome": "Beatriz Nogueira", "email": "beatriz.nogueira@escola4u.test", "perfil": "PROFESSOR", "ativo": true},
+    {"id": 4, "nome": "Renato Campos", "email": "renato.campos@escola4u.test", "perfil": "PROFESSOR", "ativo": true},
+    {"id": 5, "nome": "Luciana Prado", "email": "luciana.prado@escola4u.test", "perfil": "PROFESSOR", "ativo": true},
+    {"id": 6, "nome": "Fernanda Lima", "email": "fernanda.lima@escola4u.test", "perfil": "PROFESSOR", "ativo": true},
+    {"id": 7, "nome": "Otávio Reis", "email": "otavio.reis@escola4u.test", "perfil": "PROFESSOR", "ativo": false},
+    {"id": 8, "nome": "Patrícia Ramos", "email": "responsavel@escola4u.test", "perfil": "RESPONSAVEL", "ativo": true},
+    {"id": 9, "nome": "Eduardo Ramos", "email": "eduardo.ramos@familia.test", "perfil": "RESPONSAVEL", "ativo": true},
+    {"id": 10, "nome": "Juliana Souza", "email": "juliana.souza@familia.test", "perfil": "RESPONSAVEL", "ativo": true},
+    {"id": 11, "nome": "Marcelo Oliveira", "email": "marcelo.oliveira@familia.test", "perfil": "RESPONSAVEL", "ativo": true},
+    {"id": 12, "nome": "Renata Martins", "email": "renata.martins@familia.test", "perfil": "RESPONSAVEL", "ativo": true},
+    {"id": 13, "nome": "Paulo Costa", "email": "paulo.costa@familia.test", "perfil": "RESPONSAVEL", "ativo": true},
+    {"id": 14, "nome": "Cristina Ferreira", "email": "cristina.ferreira@familia.test", "perfil": "RESPONSAVEL", "ativo": true},
+    {"id": 15, "nome": "Rodrigo Almeida", "email": "rodrigo.almeida@familia.test", "perfil": "RESPONSAVEL", "ativo": true},
+    {"id": 16, "nome": "Aline Rocha", "email": "aline.rocha@familia.test", "perfil": "RESPONSAVEL", "ativo": true},
+    {"id": 17, "nome": "Fábio Barbosa", "email": "fabio.barbosa@familia.test", "perfil": "RESPONSAVEL", "ativo": true},
+    {"id": 18, "nome": "Tatiane Cardoso", "email": "tatiane.cardoso@familia.test", "perfil": "RESPONSAVEL", "ativo": true},
+    {"id": 19, "nome": "Sérgio Nascimento", "email": "sergio.nascimento@familia.test", "perfil": "RESPONSAVEL", "ativo": true},
+    {"id": 20, "nome": "Vanessa Pinto", "email": "vanessa.pinto@familia.test", "perfil": "RESPONSAVEL", "ativo": true},
+    {"id": 21, "nome": "Leandro Ribeiro", "email": "leandro.ribeiro@familia.test", "perfil": "RESPONSAVEL", "ativo": true},
+    {"id": 22, "nome": "Priscila Teixeira", "email": "priscila.teixeira@familia.test", "perfil": "RESPONSAVEL", "ativo": true},
+    {"id": 23, "nome": "André Moreira", "email": "andre.moreira@familia.test", "perfil": "RESPONSAVEL", "ativo": true},
+    {"id": 24, "nome": "Camila Castro", "email": "camila.castro@familia.test", "perfil": "RESPONSAVEL", "ativo": true},
+    {"id": 25, "nome": "Roberto Lopes", "email": "roberto.lopes@familia.test", "perfil": "RESPONSAVEL", "ativo": true},
+    {"id": 26, "nome": "Daniela Araújo", "email": "daniela.araujo@familia.test", "perfil": "RESPONSAVEL", "ativo": true},
+    {"id": 27, "nome": "Fernando Freitas", "email": "fernando.freitas@familia.test", "perfil": "RESPONSAVEL", "ativo": true},
+    {"id": 28, "nome": "Simone Mendes", "email": "simone.mendes@familia.test", "perfil": "RESPONSAVEL", "ativo": true},
+    {"id": 29, "nome": "Gustavo Carvalho", "email": "gustavo.carvalho@familia.test", "perfil": "RESPONSAVEL", "ativo": true},
+    {"id": 30, "nome": "Márcia Monteiro", "email": "marcia.monteiro@familia.test", "perfil": "RESPONSAVEL", "ativo": true},
+    {"id": 31, "nome": "Diego Dias", "email": "diego.dias@familia.test", "perfil": "RESPONSAVEL", "ativo": true},
+    {"id": 32, "nome": "Juliana Fontes", "email": "juliana.fontes@familia.test", "perfil": "RESPONSAVEL", "ativo": true}
+];
+
+export default usuario;
