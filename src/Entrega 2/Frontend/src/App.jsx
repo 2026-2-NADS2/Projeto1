@@ -4,6 +4,9 @@ import { ToastProvider } from './contexts/ToastContext.jsx';
 import RotaProtegida from './components/layout/RotaProtegida.jsx';
 import Home from './pages/Home.jsx';
 import Login from './pages/Login.jsx';
+import Sobre from './pages/Sobre.jsx';
+import Ajuda from './pages/Ajuda.jsx';
+import Contato from './pages/Contato.jsx';
 import AdminDashboard from './pages/admin/AdminDashboard.jsx';
 import Cadastros from './pages/admin/Cadastros.jsx';
 import ProfessorDashboard from './pages/professor/ProfessorDashboard.jsx';
@@ -19,6 +22,9 @@ export default function App() {
           <Routes>
             <Route path={ROTAS.home} element={<Home />} />
             <Route path={ROTAS.login} element={<Login />} />
+            <Route path={ROTAS.sobre} element={<Sobre />} />
+            <Route path={ROTAS.ajuda} element={<Ajuda />} />
+            <Route path={ROTAS.contato} element={<Contato />} />
             <Route path={ROTAS.adminDashboard} element={<RotaProtegida perfil="ADMINISTRADOR"><AdminDashboard /></RotaProtegida>} />
             <Route path={ROTAS.adminCadastros} element={<RotaProtegida perfil="ADMINISTRADOR"><Cadastros /></RotaProtegida>} />
             <Route path={ROTAS.professorDashboard} element={<RotaProtegida perfil="PROFESSOR"><ProfessorDashboard /></RotaProtegida>} />

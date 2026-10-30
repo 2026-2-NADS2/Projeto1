@@ -1,0 +1,86 @@
+/* Página Sobre */
+.sobre { padding-top: var(--esp-3); }
+
+.sobre__imagem {
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+  margin: 0 auto var(--esp-4);
+}
+
+.sobre__card {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: var(--esp-5) var(--esp-6);
+  position: relative;
+  overflow: hidden;
+}
+/* Faixa com as quatro cores da borboleta */
+.sobre__card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  background: linear-gradient(90deg,
+    var(--cor-marinho) 0 25%, var(--cor-alerta) 25% 50%,
+    var(--cor-primaria) 50% 75%, var(--cor-magenta) 75% 100%);
+}
+.sobre__card h1 { margin-bottom: var(--esp-1); }
+.sobre__subtitulo {
+  color: var(--cor-primaria);
+  font-weight: 600;
+  font-size: 1.125rem;
+  margin-bottom: var(--esp-4);
+}
+.sobre__card > p { font-size: 1.0625rem; max-width: 68ch; }
+
+.sobre__pilares {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--esp-3);
+  margin: var(--esp-4) 0;
+  padding: 0;
+  list-style: none;
+}
+.sobre__pilar {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: var(--esp-3);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  background: var(--cor-fundo);
+}
+.sobre__pilar h2 { font-size: 1.05rem; margin-bottom: 2px; }
+.sobre__pilar p { margin: 0; font-size: 0.95rem; color: var(--cor-texto-secundario); }
+.sobre__pilar-icone {
+  flex-shrink: 0;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.sobre__card > .sobre__slogan {
+  max-width: none;
+  margin: 0;
+  padding-top: var(--esp-3);
+  border-top: 1px solid var(--cor-borda);
+  font-family: var(--fonte-titulo);
+  font-size: 1.25rem;
+  color: var(--cor-marinho);
+}
+.sobre__slogan strong { color: var(--cor-magenta); font-weight: 400; }
+
+.sobre__acoes {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--esp-3);
+  margin: var(--esp-5) 0 0;
+}
+
+@media (max-width: 760px) {
+  .sobre__card { padding: var(--esp-4) var(--esp-3); }
+  .sobre__pilares { grid-template-columns: 1fr; }
+}

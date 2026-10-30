@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Icon from '../components/Icon.jsx';
 import CabecalhoPublico from '../components/layout/CabecalhoPublico.jsx';
 import RodapePublico from '../components/layout/RodapePublico.jsx';
-import LinkInativo from '../components/layout/LinkInativo.jsx';
+import { ROTAS } from '../utils/rotas.js';
 import '../styles/pages/home.css';
 import bannerAdmin from '../assets/banner-admin.png';
 import bannerProfessor from '../assets/banner-professor.jpg';
@@ -83,7 +84,7 @@ function Carrossel() {
             <div className="banner__texto">
               {i === 0 ? <h1>{slide.titulo}</h1> : <h2 className="banner__titulo">{slide.titulo}</h2>}
               <p>{slide.texto}</p>
-              <LinkInativo className="banner__link">Conheça mais o 4U</LinkInativo>
+              <Link className="banner__link" to={ROTAS.sobre}>Conheça mais o 4U</Link>
             </div>
             <div className="banner__midia">
               <span className="banner__perfil"><Icon nome={slide.icone} />{slide.perfil}</span>

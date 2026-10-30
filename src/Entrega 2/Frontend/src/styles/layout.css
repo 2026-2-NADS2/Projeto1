@@ -31,6 +31,8 @@
   border-bottom: 2px solid transparent;
 }
 .nav-publica__link:hover { color: var(--cor-primaria); border-bottom-color: currentColor; }
+/* Página atual */
+.nav-publica__link[aria-current="page"] { color: var(--cor-primaria); font-weight: 700; border-bottom-color: currentColor; }
 .cabecalho-publico .btn--primario { padding-inline: 24px; font-size: 1.125rem; }
 .nav-publica__menu { display: none; }
 
@@ -51,6 +53,7 @@
   }
   .nav-publica__link { display: block; padding: 12px var(--esp-3); border-bottom: 0; border-radius: 8px; }
   .nav-publica__link:hover { background: var(--tint-neutro); }
+  .nav-publica__link[aria-current="page"] { background: var(--tint-primaria); }
 }
 
 .rodape-publico {

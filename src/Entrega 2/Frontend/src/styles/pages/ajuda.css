@@ -1,0 +1,89 @@
+/* Página Ajuda */
+.container.ajuda { max-width: 860px; padding-top: var(--esp-3); }
+
+.ajuda__topo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: var(--esp-5);
+}
+.ajuda__topo img { margin-bottom: var(--esp-3); }
+.ajuda__topo h1 { margin-bottom: var(--esp-4); }
+.ajuda__busca { max-width: 620px; }
+.ajuda__busca .busca__campo { min-height: 52px; font-size: 1.0625rem; }
+
+/* Grupos de perguntas */
+.faq { margin-bottom: var(--esp-5); }
+.faq__grupo {
+  font-size: 1.125rem;
+  color: var(--cor-primaria);
+  margin-bottom: var(--esp-3);
+}
+.faq__lista {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-2);
+}
+
+/* Sanfona */
+.faq__item {
+  background: var(--cor-card);
+  border: 1px solid var(--cor-borda);
+  border-left: 4px solid var(--cor-borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra-card);
+  transition: border-color var(--transicao);
+}
+.faq__item--aberta { border-left-color: var(--cor-primaria); }
+.faq__pergunta { margin: 0; font-family: var(--fonte-corpo); font-size: 1rem; }
+.faq__pergunta button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--esp-3);
+  padding: var(--esp-3);
+  background: none;
+  border: 0;
+  border-radius: var(--raio);
+  text-align: left;
+  font-weight: 600;
+  color: var(--cor-marinho);
+}
+.faq__pergunta button:hover { color: var(--cor-primaria); }
+.faq__pergunta .icone {
+  flex-shrink: 0;
+  transition: transform var(--transicao);
+  color: var(--cor-texto-secundario);
+}
+.faq__pergunta button[aria-expanded="true"] .icone { transform: rotate(180deg); color: var(--cor-primaria); }
+.faq__resposta { padding: 0 var(--esp-3) var(--esp-3); }
+.faq__resposta p { margin: 0; color: var(--cor-texto); max-width: 70ch; }
+
+.ajuda__vazio { margin-bottom: var(--esp-5); }
+
+/* Chamada para o contato */
+.ajuda__contato {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-3);
+  padding: var(--esp-4);
+}
+.ajuda__contato h2 { font-size: 1.125rem; margin-bottom: 4px; }
+.ajuda__contato p { margin: 0; color: var(--cor-texto-secundario); }
+.ajuda__contato > div { flex: 1; }
+.ajuda__contato-icone {
+  flex-shrink: 0;
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+@media (max-width: 600px) {
+  .ajuda__contato { flex-direction: column; align-items: flex-start; }
+}

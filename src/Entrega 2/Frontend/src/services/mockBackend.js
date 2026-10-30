@@ -256,3 +256,34 @@ export function mediasPublicadas(sessao, alunoId, bimestreId) {
   };
 }
 
+
+/* Área pública: contato da escola (configuracao_escola) */
+export function contatoEscola() {
+  const c = db.configuracao_escola;
+  return { nome: c.nome, email: c.email_contato, telefone: c.telefone, endereco: c.endereco };
+}
+
+/* Formulário de contato: no banco real grava em mensagem_contato */
+const mensagensContato = [];
+
+export function registrarContato({ nome, email, mensagem } = {}) {
+  const campos = {};
+  if (!nome || String(nome).trim().length < 3) campos.nome = 'Informe seu nome.';
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(email || '').trim())) campos.email = 'Informe um e-mail válido.';
+  if (!mensagem || String(mensagem).trim().length < 10) campos.mensagem = 'Escreva sua mensagem com pelo menos 10 caracteres.';
+  if (Object.keys(campos).length) {
+    const e = erro(400, 'Confira os campos destacados.');
+    e.campos = campos;
+    throw e;
+  }
+  const registro = {
+    id: mensagensContato.length + 1,
+    nome: String(nome).trim(),
+    email: String(email).trim(),
+    mensagem: String(mensagem).trim(),
+    status: 'NOVA',
+    criado_em: new Date().toISOString()
+  };
+  mensagensContato.push(registro);
+  return { id: registro.id, mensagem: 'Mensagem enviada com sucesso.' };
+}

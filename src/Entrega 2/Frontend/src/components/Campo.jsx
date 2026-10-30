@@ -57,3 +57,20 @@ export function CampoSelect({ id, rotulo, obrigatorio, ajuda, erro, inteiro, opc
     </div>
   );
 }
+
+export function CampoAreaTexto({ id, rotulo, obrigatorio, ajuda, erro, inteiro, ...props }) {
+  return (
+    <div className={'campo' + (inteiro ? ' campo--inteiro' : '') + (erro ? ' campo--invalido' : '')}>
+      <Rotulo id={id} rotulo={rotulo} obrigatorio={obrigatorio} />
+      <textarea
+        id={id}
+        className="campo__input"
+        aria-required={obrigatorio || undefined}
+        aria-invalid={erro ? true : undefined}
+        aria-describedby={descritoPor(id, ajuda)}
+        {...props}
+      />
+      <Rodape id={id} ajuda={ajuda} erro={erro} />
+    </div>
+  );
+}

@@ -1,6 +1,9 @@
 export const ROTAS = {
   home: '/',
   login: '/login',
+  sobre: '/sobre',
+  ajuda: '/ajuda',
+  contato: '/contato',
   adminDashboard: '/admin',
   adminCadastros: '/admin/cadastros',
   professorDashboard: '/professor',

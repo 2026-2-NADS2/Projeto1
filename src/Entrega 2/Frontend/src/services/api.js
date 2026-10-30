@@ -60,6 +60,12 @@ function requisicao(metodo, caminho, corpo, execMock) {
 }
 
 const api = {
+  /* Área pública (sem login) */
+  contatoEscola: () =>
+    requisicao('GET', '/escola/contato', null, () => mock.contatoEscola()),
+  enviarContato: (dados) =>
+    requisicao('POST', '/contato', dados, () => mock.registrarContato(dados)),
+
   /* Autenticação */
   entrar: (email, senha) =>
     requisicao('POST', '/auth/login', { email, senha }, () => mock.autenticar({ email, senha })),

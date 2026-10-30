@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import Icon from '../Icon.jsx';
-import LinkInativo from './LinkInativo.jsx';
 import logotipo from '../../assets/logotipo-4u-original.png';
 import { ROTAS } from '../../utils/rotas.js';
 
@@ -25,9 +24,10 @@ export default function CabecalhoPublico() {
         </button>
         <nav className={'nav-publica' + (aberto ? ' aberta' : '')} id="nav-publica" aria-label="Navegação principal">
           <ul className="nav-publica__lista">
-            <li><LinkInativo className="nav-publica__link">Sobre</LinkInativo></li>
-            <li><LinkInativo className="nav-publica__link">Contato</LinkInativo></li>
-            <li><LinkInativo className="nav-publica__link">Ajuda</LinkInativo></li>
+            {/* NavLink marca a página atual com aria-current="page" */}
+            <li><NavLink className="nav-publica__link" to={ROTAS.sobre}>Sobre</NavLink></li>
+            <li><NavLink className="nav-publica__link" to={ROTAS.contato}>Contato</NavLink></li>
+            <li><NavLink className="nav-publica__link" to={ROTAS.ajuda}>Ajuda</NavLink></li>
           </ul>
         </nav>
         <Link className="btn btn--primario" to={ROTAS.login}>Entrar</Link>

@@ -76,6 +76,7 @@
   transition: border-color var(--transicao), box-shadow var(--transicao);
 }
 .campo__input::placeholder { color: #9A9188; }
+textarea.campo__input { min-height: 160px; resize: vertical; line-height: 1.5; }
 .campo__input:hover, .campo__select:hover { border-color: #CDBDA4; }
 .campo__input:focus-visible, .campo__select:focus-visible {
   border-color: var(--cor-primaria);
