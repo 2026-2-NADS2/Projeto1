@@ -2,9 +2,9 @@
 const configuracao_escola = {
     "id": 1,
     "nome": "Escola Municipal de Ensino Fundamental 4U (fictícia)",
-    "email_contato": "contato@escola4u.test",
-    "telefone": "(11) 0000-0000",
-    "endereco": "Rua Fictícia, 100 — São Paulo/SP",
+    "email_contato": "responsavel@4u.com.br",
+    "telefone": "(11) 94567-8912",
+    "endereco": "Av. da Liberdade, 532 - Liberdade",
     "media_minima": 0,
     "media_maxima": 10,
     "media_aprovacao": 6
