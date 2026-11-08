@@ -1,5 +1,5 @@
 import Icon from './Icon.jsx';
-import { iniciais, STATUS } from '../utils/formatadores.js';
+import { formatarMedia, iniciais, STATUS } from '../utils/formatadores.js';
 
 export function StatusBadge({ status, texto }) {
   const info = STATUS[status];
@@ -12,7 +12,34 @@ export function StatusBadge({ status, texto }) {
 }
 
 export function Situacao({ ativo }) {
-  return <span className={'situacao situacao--' + (ativo ? 'ativo' : 'inativo')}>{ativo ? 'Ativo' : 'Inativo'}</span>;
+  return <span className={'situacao situacao--' + (ativo ? 'ativo' : 'inativo')}>{ativo ? 'Ativo' : 'Desativado'}</span>;
+}
+
+/* Login de professor ou responsável: liberado, aguardando o primeiro acesso ou desativado */
+const ACESSO = {
+  LIBERADO: { rotulo: 'Acesso liberado', classe: 'ativo' },
+  PENDENTE: { rotulo: 'Aguardando primeiro acesso', classe: 'pendente' },
+  DESATIVADO: { rotulo: 'Acesso desativado', classe: 'inativo' }
+};
+
+export function SituacaoAcesso({ acesso }) {
+  const info = ACESSO[acesso] || ACESSO.LIBERADO;
+  return <span className={'situacao situacao--' + info.classe}>{info.rotulo}</span>;
+}
+
+/* Tag do acompanhamento, com a cor cadastrada na tabela tag */
+export function Etiqueta({ nome, cor }) {
+  return <span className="etiqueta" style={{ '--etiqueta-cor': cor || '#3F3A36' }}>{nome}</span>;
+}
+
+/* Média com aviso quando fica abaixo da média de aprovação da escola */
+export function Media({ valor, aprovacao }) {
+  const abaixo = valor !== null && valor !== undefined && aprovacao !== undefined && valor < aprovacao;
+  return (
+    <span className={'media' + (abaixo ? ' media--abaixo' : '')} title={abaixo ? 'Abaixo da média de aprovação' : undefined}>
+      {abaixo && <Icon nome="alerta" />}{formatarMedia(valor)}
+    </span>
+  );
 }
 
 export function Avatar({ nome }) {

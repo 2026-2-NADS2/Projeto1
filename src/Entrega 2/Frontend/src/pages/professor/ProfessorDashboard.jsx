@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import AreaAutenticada from '../../components/layout/AreaAutenticada.jsx';
 import Icon from '../../components/Icon.jsx';
 import { Indicador, IndicadorCarregando, StatusBadge } from '../../components/Elementos.jsx';
@@ -10,21 +11,22 @@ import { formatarDataHora, plural, primeiroNome, saudacao } from '../../utils/fo
 import '../../styles/pages/dashboard.css';
 
 const ATALHOS = [
-  { icone: 'mais', tom: 'tom-primaria', titulo: 'Novo acompanhamento', texto: 'Descrição, média e tags' },
-  { icone: 'turma', tom: 'tom-marinho', titulo: 'Minhas turmas', texto: 'Alunos das turmas vinculadas' },
-  { icone: 'devolver', tom: 'tom-erro', titulo: 'Registros devolvidos', texto: 'Corrigir e reenviar para revisão' },
-  { icone: 'mensagem', tom: 'tom-magenta', titulo: 'Retornos dos responsáveis', texto: 'Ciência e observações das famílias' }
+  { icone: 'mais', tom: 'tom-primaria', titulo: 'Novo acompanhamento', texto: 'Descrição, média e tags', caminho: ROTAS.professorAcompanhamentos },
+  { icone: 'turma', tom: 'tom-marinho', titulo: 'Minhas turmas', texto: 'Alunos das turmas vinculadas', caminho: ROTAS.professorTurmas },
+  { icone: 'devolver', tom: 'tom-erro', titulo: 'Registros devolvidos', texto: 'Corrigir e reenviar para revisão', caminho: ROTAS.professorRetornos },
+  { icone: 'mensagem', tom: 'tom-magenta', titulo: 'Retornos dos responsáveis', texto: 'Ciência e observações das famílias', caminho: ROTAS.professorRetornos }
 ];
 
 /* Rótulos das contagens */
 const CURTOS = { RASCUNHO: ['rascunho', 'rascunhos'], DEVOLVIDO: ['devolvido', 'devolvidos'] };
 
+/* Linha de uma turma com o progresso e as pendências */
 function LinhaTurma({ v }) {
   const pct = v.total_alunos ? Math.round((v.registrados / v.total_alunos) * 100) : 0;
   const pendencias = ['DEVOLVIDO', 'RASCUNHO'].filter((s) => v.por_status[s]);
   return (
     <li className="turma-item">
-      <div className="turma-item__resumo">
+      <Link className="turma-item__resumo turma-item__resumo--link" to={`${ROTAS.professorAcompanhamentos}?vinculo=${v.id}`}>
         <span className="turma-item__icone tom-primaria"><Icon nome="turma" /></span>
         <span>
           <span className="turma-item__nome">{v.turma}</span>
@@ -45,11 +47,12 @@ function LinhaTurma({ v }) {
             })
             : <span className="legenda">Sem pendências</span>}
         </span>
-      </div>
+      </Link>
     </li>
   );
 }
 
+/* Dashboard do professor */
 export default function ProfessorDashboard() {
   const { usuario } = useAuth();
   const painel = useApi(api.painelProfessor);
@@ -75,18 +78,12 @@ export default function ProfessorDashboard() {
   else turmas = <ul className="turmas-lista">{p.vinculos.map((v) => <LinhaTurma key={v.id} v={v} />)}</ul>;
 
   return (
-    <AreaAutenticada paginaAtiva={ROTAS.professorDashboard} busca="Buscar aluno das suas turmas…">
-      <div className="conteudo__cabecalho">
-        <div>
-          <h1>{saudacao()}, Prof. {primeiroNome(usuario.nome)}</h1>
-          <p>
-            {b
-              ? `${b.numero}º bimestre de ${b.ano_letivo} — ` +
-                (b.digitacao_aberta ? `digitação aberta até ${formatarDataHora(b.encerramento_digitacao)}.` : 'período de digitação encerrado.')
-              : 'Acompanhamento das suas turmas no bimestre atual.'}
-          </p>
-        </div>
-      </div>
+    <AreaAutenticada paginaAtiva={ROTAS.professorDashboard}
+      titulo={<>{saudacao()}, {primeiroNome(usuario.nome)}!<span aria-hidden="true"> 👋</span></>}
+      descricao={b
+        ? `${b.numero}º bimestre de ${b.ano_letivo} — ` +
+          (b.digitacao_aberta ? `digitação aberta até ${formatarDataHora(b.encerramento_digitacao)}.` : 'período de digitação encerrado.')
+        : 'Acompanhamento das suas turmas no bimestre atual.'}>
 
       {b && !b.digitacao_aberta && (
         <div className="alerta alerta--alerta" role="status" style={{ marginBottom: 24 }}>
@@ -113,7 +110,7 @@ export default function ProfessorDashboard() {
           <ul className="atalhos">
             {ATALHOS.map((a, i) => (
               <li key={a.titulo}>
-                <div className="atalho">
+                <Link className="atalho" to={a.caminho}>
                   <span className={'atalho__icone ' + a.tom}><Icon nome={a.icone} /></span>
                   <span className="atalho__texto">
                     {a.titulo}
@@ -124,7 +121,7 @@ export default function ProfessorDashboard() {
                     </small>
                   </span>
                   <Icon nome="chevronDireita" />
-                </div>
+                </Link>
               </li>
             ))}
           </ul>

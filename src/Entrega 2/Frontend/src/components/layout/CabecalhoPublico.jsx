@@ -4,6 +4,7 @@ import Icon from '../Icon.jsx';
 import logotipo from '../../assets/logotipo-4u-original.png';
 import { ROTAS } from '../../utils/rotas.js';
 
+/* Cabeçalho das páginas públicas (Home, Sobre, Contato, Ajuda) */
 export default function CabecalhoPublico() {
   const [aberto, setAberto] = useState(false);
   return (

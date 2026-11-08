@@ -147,3 +147,7 @@ table { border-collapse: collapse; width: 100%; }
 }
 [hidden] { display: none !important; }
 
+
+/* VLibras: botão no canto de baixo, para não cobrir os botões do topo das telas */
+div[vw].enabled { top: auto !important; bottom: 16px !important; transform: none !important; }
+@media print { div[vw] { display: none !important; } }

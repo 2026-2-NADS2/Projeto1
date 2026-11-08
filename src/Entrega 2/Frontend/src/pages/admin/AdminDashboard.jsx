@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import AreaAutenticada from '../../components/layout/AreaAutenticada.jsx';
 import Icon from '../../components/Icon.jsx';
 import { Avatar, Indicador, IndicadorCarregando, StatusBadge } from '../../components/Elementos.jsx';
@@ -10,12 +11,13 @@ import { formatarData, formatarDataHora, plural, primeiroNome, saudacao } from '
 import '../../styles/pages/dashboard.css';
 
 const ACOES_RAPIDAS = [
-  { icone: 'usuarios', tom: 'tom-primaria', titulo: 'Gerenciar cadastros', texto: 'Alunos, professores e responsáveis' },
-  { icone: 'prancheta', tom: 'tom-alerta', titulo: 'Revisar acompanhamentos', texto: 'Enviados pelos professores' },
-  { icone: 'calendario', tom: 'tom-marinho', titulo: 'Configurar bimestres', texto: 'Abertura e encerramento da digitação' },
-  { icone: 'baixar', tom: 'tom-sucesso', titulo: 'Exportar dados', texto: 'Arquivo .csv compatível com Excel' }
+  { icone: 'usuarios', tom: 'tom-primaria', titulo: 'Gerenciar cadastros', texto: 'Alunos, professores e responsáveis', caminho: ROTAS.adminCadastros },
+  { icone: 'prancheta', tom: 'tom-alerta', titulo: 'Revisar acompanhamentos', texto: 'Enviados pelos professores', caminho: ROTAS.adminAcompanhamentos },
+  { icone: 'calendario', tom: 'tom-marinho', titulo: 'Configurar bimestres', texto: 'Abertura e encerramento da digitação', caminho: ROTAS.adminBimestres },
+  { icone: 'baixar', tom: 'tom-sucesso', titulo: 'Exportar dados', texto: 'Arquivo .csv compatível com Excel', caminho: ROTAS.adminRelatorios }
 ];
 
+/* Cards de números do dashboard */
 function Indicadores({ resumo }) {
   if (resumo.carregando) return [1, 2, 3, 4].map((i) => <IndicadorCarregando key={i} />);
   if (resumo.erro) return <ErroCarregamento erro={resumo.erro} aoTentarNovamente={resumo.recarregar} />;
@@ -31,6 +33,7 @@ function Indicadores({ resumo }) {
   );
 }
 
+/* Últimos acompanhamentos movimentados */
 function TabelaRecentes({ recentes }) {
   if (recentes.carregando) return <Carregando linhas={6} blocos />;
   if (recentes.erro) return <ErroCarregamento erro={recentes.erro} aoTentarNovamente={recentes.recarregar} />;
@@ -65,6 +68,7 @@ function TabelaRecentes({ recentes }) {
   );
 }
 
+/* Dashboard do administrador */
 export default function AdminDashboard() {
   const { usuario } = useAuth();
   const resumo = useApi(api.resumoAdministrador);
@@ -72,18 +76,12 @@ export default function AdminDashboard() {
   const r = resumo.dados;
 
   return (
-    <AreaAutenticada paginaAtiva={ROTAS.adminDashboard} busca="Buscar aluno pelo nome…">
-      <div className="conteudo__cabecalho">
-        <div>
-          <h1>{saudacao()}, {primeiroNome(usuario.nome)}</h1>
-          <p>
-            {r
-              ? `${r.bimestre.numero}º bimestre de ${r.bimestre.ano_letivo} — ` +
-                (r.bimestre.digitacao_aberta ? `digitação aberta até ${formatarDataHora(r.bimestre.encerramento_digitacao)}.` : 'digitação encerrada.')
-              : 'Visão geral da escola no bimestre atual.'}
-          </p>
-        </div>
-      </div>
+    <AreaAutenticada paginaAtiva={ROTAS.adminDashboard}
+      titulo={<>{saudacao()}, {primeiroNome(usuario.nome)}!<span aria-hidden="true"> 👋</span></>}
+      descricao={r
+        ? `${r.bimestre.numero}º bimestre de ${r.bimestre.ano_letivo} — ` +
+          (r.bimestre.digitacao_aberta ? `digitação aberta até ${formatarDataHora(r.bimestre.encerramento_digitacao)}.` : 'digitação encerrada.')
+        : 'Visão geral da escola no bimestre atual.'}>
 
       <section className="grade-indicadores grade-indicadores--4" aria-label="Indicadores gerais">
         <Indicadores resumo={resumo} />
@@ -93,7 +91,7 @@ export default function AdminDashboard() {
         <section className="card" aria-labelledby="recentes-titulo">
           <div className="card__cabecalho">
             <h2 id="recentes-titulo">Acompanhamentos recentes</h2>
-            <span className="link-seta">Ver todos<Icon nome="seta" /></span>
+            <Link className="link-seta" to={ROTAS.adminAcompanhamentos}>Ver todos<Icon nome="seta" /></Link>
           </div>
           <TabelaRecentes recentes={recentes} />
         </section>
@@ -103,14 +101,14 @@ export default function AdminDashboard() {
           <ul className="atalhos">
             {ACOES_RAPIDAS.map((acao, i) => (
               <li key={acao.titulo}>
-                <div className="atalho">
+                <Link className="atalho" to={acao.caminho}>
                   <span className={'atalho__icone ' + acao.tom}><Icon nome={acao.icone} /></span>
                   <span className="atalho__texto">
                     {acao.titulo}
                     <small>{i === 1 && r ? plural(r.aguardando_revisao, 'registro aguardando', 'registros aguardando') + ' revisão' : acao.texto}</small>
                   </span>
                   <Icon nome="chevronDireita" />
-                </div>
+                </Link>
               </li>
             ))}
           </ul>

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import AreaAutenticada from '../../components/layout/AreaAutenticada.jsx';
 import Icon from '../../components/Icon.jsx';
 import GraficoBarras from '../../components/GraficoBarras.jsx';
@@ -23,11 +24,13 @@ function Filtro({ id, rotulo, valor, opcoes, aoMudar }) {
   );
 }
 
+/* Painel de um aluno: médias do bimestre no gráfico */
 function PainelAluno({ painel }) {
   /* Filtros iniciais */
   const [alunoId, setAlunoId] = useState(painel.alunos[0].id);
   const [anoLetivo, setAnoLetivo] = useState(painel.anos_letivos[0]);
-  const [bimestreId, setBimestreId] = useState(painel.bimestre_atual.id);
+  /* Começa no último bimestre com relatório publicado */
+  const [bimestreId, setBimestreId] = useState(painel.bimestre_inicial_id || painel.bimestre_atual.id);
 
   const aluno = painel.alunos.find((a) => a.id === alunoId);
   const bimestresDoAno = painel.bimestres.filter((b) => b.ano_letivo === anoLetivo);
@@ -98,11 +101,19 @@ function PainelAluno({ painel }) {
         <p className="legenda painel-grafico__rodape">
           <Icon nome="info" className="icone--inline" /> Aparecem aqui apenas os acompanhamentos já revisados e publicados pela escola.
         </p>
+        {m && m.disciplinas.length > 0 && (
+          <p className="painel-grafico__rodape">
+            <Link className="link-seta" to={`${ROTAS.responsavelRelatorios}?aluno=${aluno.id}&bimestre=${bimestre.id}`}>
+              Ler o relatório completo e dar ciência<Icon nome="seta" />
+            </Link>
+          </p>
+        )}
       </section>
     </>
   );
 }
 
+/* Dashboard do responsável */
 export default function ResponsavelDashboard() {
   const { usuario } = useAuth();
   const painel = useApi(api.painelResponsavel);
@@ -130,13 +141,9 @@ export default function ResponsavelDashboard() {
   }
 
   return (
-    <AreaAutenticada paginaAtiva={ROTAS.responsavelDashboard}>
-      <div className="conteudo__cabecalho">
-        <div>
-          <h1>{saudacao()}, {primeiroNome(usuario.nome)}</h1>
-          <p>Acompanhe o desenvolvimento dos alunos vinculados ao seu cadastro.</p>
-        </div>
-      </div>
+    <AreaAutenticada paginaAtiva={ROTAS.responsavelDashboard}
+      titulo={<>{saudacao()}, {primeiroNome(usuario.nome)}!<span aria-hidden="true"> 👋</span></>}
+      descricao="Acompanhe o desenvolvimento dos alunos vinculados ao seu cadastro.">
       {conteudo}
     </AreaAutenticada>
   );

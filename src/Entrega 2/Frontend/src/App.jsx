@@ -4,15 +4,28 @@ import { ToastProvider } from './contexts/ToastContext.jsx';
 import RotaProtegida from './components/layout/RotaProtegida.jsx';
 import Home from './pages/Home.jsx';
 import Login from './pages/Login.jsx';
+import EsqueciSenha from './pages/EsqueciSenha.jsx';
+import DefinirSenha from './pages/DefinirSenha.jsx';
 import Sobre from './pages/Sobre.jsx';
 import Ajuda from './pages/Ajuda.jsx';
 import Contato from './pages/Contato.jsx';
 import AdminDashboard from './pages/admin/AdminDashboard.jsx';
 import Cadastros from './pages/admin/Cadastros.jsx';
+import AdminAcompanhamentos from './pages/admin/Acompanhamentos.jsx';
+import Bimestres from './pages/admin/Bimestres.jsx';
+import AdminRelatorios from './pages/admin/Relatorios.jsx';
 import ProfessorDashboard from './pages/professor/ProfessorDashboard.jsx';
+import MinhasTurmas from './pages/professor/MinhasTurmas.jsx';
+import ProfessorAcompanhamentos from './pages/professor/Acompanhamentos.jsx';
+import Retornos from './pages/professor/Retornos.jsx';
 import ResponsavelDashboard from './pages/responsavel/ResponsavelDashboard.jsx';
+import MeusAlunos from './pages/responsavel/MeusAlunos.jsx';
+import ResponsavelRelatorios from './pages/responsavel/Relatorios.jsx';
 import NaoEncontrada from './pages/NaoEncontrada.jsx';
 import { ROTAS } from './utils/rotas.js';
+
+/* Rota logada: só o perfil indicado entra */
+const protegida = (perfil, pagina) => <RotaProtegida perfil={perfil}>{pagina}</RotaProtegida>;
 
 export default function App() {
   return (
@@ -22,13 +35,27 @@ export default function App() {
           <Routes>
             <Route path={ROTAS.home} element={<Home />} />
             <Route path={ROTAS.login} element={<Login />} />
+            <Route path={ROTAS.esqueciSenha} element={<EsqueciSenha />} />
+            <Route path={ROTAS.definirSenha} element={<DefinirSenha />} />
             <Route path={ROTAS.sobre} element={<Sobre />} />
             <Route path={ROTAS.ajuda} element={<Ajuda />} />
             <Route path={ROTAS.contato} element={<Contato />} />
-            <Route path={ROTAS.adminDashboard} element={<RotaProtegida perfil="ADMINISTRADOR"><AdminDashboard /></RotaProtegida>} />
-            <Route path={ROTAS.adminCadastros} element={<RotaProtegida perfil="ADMINISTRADOR"><Cadastros /></RotaProtegida>} />
-            <Route path={ROTAS.professorDashboard} element={<RotaProtegida perfil="PROFESSOR"><ProfessorDashboard /></RotaProtegida>} />
-            <Route path={ROTAS.responsavelDashboard} element={<RotaProtegida perfil="RESPONSAVEL"><ResponsavelDashboard /></RotaProtegida>} />
+
+            <Route path={ROTAS.adminDashboard} element={protegida('ADMINISTRADOR', <AdminDashboard />)} />
+            <Route path={ROTAS.adminCadastros} element={protegida('ADMINISTRADOR', <Cadastros />)} />
+            <Route path={ROTAS.adminAcompanhamentos} element={protegida('ADMINISTRADOR', <AdminAcompanhamentos />)} />
+            <Route path={ROTAS.adminBimestres} element={protegida('ADMINISTRADOR', <Bimestres />)} />
+            <Route path={ROTAS.adminRelatorios} element={protegida('ADMINISTRADOR', <AdminRelatorios />)} />
+
+            <Route path={ROTAS.professorDashboard} element={protegida('PROFESSOR', <ProfessorDashboard />)} />
+            <Route path={ROTAS.professorTurmas} element={protegida('PROFESSOR', <MinhasTurmas />)} />
+            <Route path={ROTAS.professorAcompanhamentos} element={protegida('PROFESSOR', <ProfessorAcompanhamentos />)} />
+            <Route path={ROTAS.professorRetornos} element={protegida('PROFESSOR', <Retornos />)} />
+
+            <Route path={ROTAS.responsavelDashboard} element={protegida('RESPONSAVEL', <ResponsavelDashboard />)} />
+            <Route path={ROTAS.responsavelAlunos} element={protegida('RESPONSAVEL', <MeusAlunos />)} />
+            <Route path={ROTAS.responsavelRelatorios} element={protegida('RESPONSAVEL', <ResponsavelRelatorios />)} />
+
             <Route path="*" element={<NaoEncontrada />} />
           </Routes>
         </ToastProvider>

@@ -1,6 +1,7 @@
 import Icon from './Icon.jsx';
 import { formatarMedia, plural } from '../utils/formatadores.js';
 
+/* Gráfico de barras das médias, com a linha da média de aprovação */
 export default function GraficoBarras({ titulo, itens, minimo, maximo, referencia, rotuloReferencia }) {
   const faixa = maximo - minimo;
   const pct = (v) => Math.max(0, Math.min(100, ((v - minimo) / faixa) * 100));

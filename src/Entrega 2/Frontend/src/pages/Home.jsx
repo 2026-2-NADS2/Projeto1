@@ -47,6 +47,7 @@ const VANTAGENS = [
   { icone: 'documento', tom: 'tom-sucesso', titulo: 'Relatório em PDF, quando quiser', texto: 'A família baixa o relatório publicado a qualquer momento.' }
 ];
 
+/* Banners de cada perfil, passando sozinhos */
 function Carrossel() {
   const reduzirMovimento = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const [atual, setAtual] = useState(0);
@@ -127,6 +128,7 @@ function Carrossel() {
   );
 }
 
+/* Página inicial pública */
 export default function Home() {
   return (
     <>

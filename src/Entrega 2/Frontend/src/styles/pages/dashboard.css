@@ -2,7 +2,7 @@
 .grade-indicadores {
   display: grid;
   gap: var(--esp-3);
-  margin-bottom: var(--esp-4);
+  margin-bottom: var(--esp-3);
 }
 .grade-indicadores--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .grade-indicadores--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -15,7 +15,7 @@ a.indicador:hover { border-color: var(--cor-primaria); }
 .grade-dashboard {
   display: grid;
   grid-template-columns: minmax(0, 2.1fr) minmax(270px, 1fr);
-  gap: var(--esp-4);
+  gap: var(--esp-3);
   align-items: start;
 }
 
@@ -69,7 +69,7 @@ a.indicador:hover { border-color: var(--cor-primaria); }
   grid-template-columns: 44px minmax(0, 1fr) minmax(150px, 200px) 180px;
   align-items: center;
   gap: var(--esp-3);
-  padding: var(--esp-3) var(--esp-4);
+  padding: 14px 20px;
   border: 0;
   background: transparent;
   text-align: left;
@@ -80,46 +80,25 @@ a.indicador:hover { border-color: var(--cor-primaria); }
 .turma-item__progresso-texto { display: flex; justify-content: space-between; gap: 8px; font-size: var(--fs-legenda); margin-bottom: 6px; color: var(--cor-texto-secundario); }
 .turma-item__progresso-texto strong { color: var(--cor-texto); }
 .turma-item__alertas { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; align-items: center; max-width: 220px; }
-.turma-item__seta { transition: transform var(--transicao); color: var(--cor-texto-secundario); }
-.turma-item__resumo[aria-expanded="true"] .turma-item__seta { transform: rotate(180deg); }
 
-.turma-item__detalhe { padding: 0 var(--esp-4) var(--esp-3) calc(var(--esp-4) + 44px + var(--esp-3)); }
-.turma-item__detalhe h3 { font-family: var(--fonte-corpo); font-weight: 700; font-size: 0.95rem; color: var(--cor-texto); margin-bottom: var(--esp-2); }
-.pendencias { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
-.pendencias li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--esp-2);
-  padding: 8px 12px;
-  border-radius: 8px;
-  background: #FFFCF6;
-  border: 1px solid var(--cor-borda);
-}
-.pendencias__aluno { font-weight: 600; }
-.pendencias__data { font-size: var(--fs-legenda); color: var(--cor-texto-secundario); }
-.resumo-status { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: var(--esp-3); }
 
 /* Responsável */
 .filtros {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
-  gap: var(--esp-3);
-  margin-bottom: var(--esp-4);
-  padding: var(--esp-3) var(--esp-4);
+  gap: var(--esp-2) var(--esp-3);
+  margin-bottom: var(--esp-3);
+  padding: 14px 20px;
 }
 .filtros .campo { margin: 0; min-width: 180px; flex: 1; }
 .filtros .campo:first-child { flex: 2; }
 
-.aluno-cartao { display: flex; align-items: center; gap: 12px; }
-.aluno-cartao .avatar { width: 44px; height: 44px; font-size: 0.95rem; }
 .indicador__valor--texto { font-size: 1.25rem; }
 .indicador__valor .unidade { font-family: var(--fonte-corpo); font-size: 0.95rem; color: var(--cor-texto-secundario); }
 
 .painel-grafico .card__corpo { padding-top: var(--esp-3); }
-.painel-grafico__rodape { padding: 0 var(--esp-4) var(--esp-4); }
+.painel-grafico__rodape { padding: 0 20px 16px; }
 
 /* Gráfico de barras */
 .grafico__barra-ferramentas {
@@ -166,7 +145,10 @@ a.indicador:hover { border-color: var(--cor-primaria); }
   background: var(--cor-primaria);
   transition: filter var(--transicao);
 }
-.grafico__barra--abaixo {
+/* Responsável: barras na cor do módulo (magenta) */
+.app--responsavel .grafico__barra { background: var(--cor-magenta); }
+.grafico__barra--abaixo,
+.app--responsavel .grafico__barra--abaixo {
   background: repeating-linear-gradient(135deg, var(--cor-erro) 0 6px, #C46A55 6px 9px);
 }
 .grafico__barra:hover, .grafico__barra:focus-visible { filter: brightness(1.12); }
@@ -226,19 +208,22 @@ a.indicador:hover { border-color: var(--cor-primaria); }
   .grade-dashboard { grid-template-columns: 1fr; }
 }
 @media (max-width: 760px) {
-  .grade-indicadores--3 { grid-template-columns: 1fr; }
+  /* Celular: indicadores em 2 colunas, mais compactos */
+  .grade-indicadores--3, .grade-indicadores--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--esp-2); }
+  .grade-indicadores--3 > .indicador:nth-child(3) { grid-column: 1 / -1; }
+  .indicador { flex-direction: column; align-items: flex-start; gap: 8px; padding: 12px 14px; }
+  .indicador__icone { width: 36px; height: 36px; border-radius: 10px; }
+  .indicador__icone .icone { width: 20px; height: 20px; }
+  .indicador__valor { font-size: 1.4rem; }
+  .indicador__rotulo { font-size: 0.875rem; }
   .turma-item__resumo { grid-template-columns: auto minmax(0, 1fr); padding: var(--esp-3); }
   .turma-item__progresso { grid-column: 1 / -1; grid-row: 2; }
   .turma-item__alertas { grid-column: 1 / -1; grid-row: 3; justify-content: flex-start; max-width: none; }
-  .turma-item__seta { grid-column: 3; grid-row: 1; }
-  .turma-item__detalhe { padding: 0 var(--esp-3) var(--esp-3); }
   .filtros { padding: var(--esp-3); }
   .filtros .campo { min-width: 100%; }
   .card__cabecalho { flex-wrap: wrap; padding: var(--esp-3); }
 }
 @media (max-width: 520px) {
-  .grade-indicadores--4 { grid-template-columns: 1fr; }
-  .indicador { padding: var(--esp-3); }
   /* Gráfico horizontal no celular */
   .grafico__area { height: auto; padding-bottom: 0; }
   .grafico__eixo, .grafico__grade { display: none; }

@@ -3,7 +3,8 @@ import Icon from './Icon.jsx';
 
 const SELETOR_FOCAVEL = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
-export default function Modal({ titulo, descricao, aoFechar, rodape, pequeno = false, children }) {
+/* Janela com foco preso dentro dela; Esc ou clique fora fecham */
+export default function Modal({ titulo, descricao, aoFechar, rodape, pequeno = false, largo = false, children }) {
   const id = useId();
   const caixaRef = useRef(null);
 
@@ -36,7 +37,7 @@ export default function Modal({ titulo, descricao, aoFechar, rodape, pequeno = f
     <div className="modal" onMouseDown={(e) => { if (e.target === e.currentTarget) aoFechar(); }}>
       <div
         ref={caixaRef}
-        className={'modal__caixa' + (pequeno ? ' modal__caixa--pequena' : '')}
+        className={'modal__caixa' + (pequeno ? ' modal__caixa--pequena' : '') + (largo ? ' modal__caixa--larga' : '')}
         role="dialog"
         aria-modal="true"
         aria-labelledby={id + '-titulo'}
@@ -59,7 +60,7 @@ export default function Modal({ titulo, descricao, aoFechar, rodape, pequeno = f
 }
 
 /* Janela de confirmação */
-export function ModalConfirmacao({ titulo, mensagem, textoConfirmar = 'Confirmar', aoConfirmar, aoFechar }) {
+export function ModalConfirmacao({ titulo, mensagem, textoConfirmar = 'Confirmar', aoConfirmar, aoFechar, perigo = false }) {
   return (
     <Modal
       titulo={titulo}
@@ -68,7 +69,7 @@ export function ModalConfirmacao({ titulo, mensagem, textoConfirmar = 'Confirmar
       rodape={(
         <>
           <button type="button" className="btn btn--fantasma" onClick={aoFechar}>Cancelar</button>
-          <button type="button" className="btn btn--primario" onClick={aoConfirmar}>{textoConfirmar}</button>
+          <button type="button" className={'btn ' + (perigo ? 'btn--perigo' : 'btn--primario')} onClick={aoConfirmar}>{textoConfirmar}</button>
         </>
       )}
     >

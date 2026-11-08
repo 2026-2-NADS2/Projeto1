@@ -1,14 +1,20 @@
 const express = require('express');
-const router = express.Router();
+const rota = require('../utils/rota');
+const autenticar = require('../middlewares/autenticar');
+const exigirAdministrador = require('../middlewares/exigirAdministrador');
 const controller = require('../controllers/acompanhamentoController');
 
-router.post('/', controller.criar);
-router.get('/', controller.listar);
-router.get('/:id', controller.buscarPorId);
-router.put('/:id', controller.editar);
-router.patch('/:id/enviar', controller.enviar);
-router.patch('/:id/iniciar-revisao', controller.iniciarRevisao);
-router.patch('/:id/devolver', controller.devolver);
-router.patch('/:id/publicar', controller.publicar);
+const router = express.Router();
+
+router.use(autenticar);
+
+/* Detalhe: cada perfil vê só o que pode (regra dentro do controller) */
+router.get('/:id', rota(controller.detalhe));
+
+/* Revisão e publicação: só administrador */
+router.get('/', exigirAdministrador, rota(controller.listar));
+router.put('/:id', exigirAdministrador, rota(controller.editarNaRevisao));
+router.patch('/:id/publicar', exigirAdministrador, rota(controller.publicar));
+router.patch('/:id/devolver', exigirAdministrador, rota(controller.devolver));
 
 module.exports = router;

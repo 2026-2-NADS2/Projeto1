@@ -1,5 +1,6 @@
 import Icon from './Icon.jsx';
 
+/* Rótulo do campo, com * quando obrigatório */
 function Rotulo({ id, rotulo, obrigatorio }) {
   return (
     <label className="campo__label" htmlFor={id}>
@@ -8,6 +9,7 @@ function Rotulo({ id, rotulo, obrigatorio }) {
   );
 }
 
+/* Texto de ajuda e mensagem de erro do campo */
 function Rodape({ id, ajuda, erro }) {
   return (
     <>

@@ -1,5 +1,8 @@
 import Icon from './Icon.jsx';
 
+const OPCOES_POR_PAGINA = [10, 20, 50];
+
+/* Números que aparecem: primeira, última e as vizinhas da atual (o resto vira "…") */
 function paginasVisiveis(atual, total) {
   const lista = [];
   for (let p = 1; p <= total; p++) {
@@ -9,32 +12,41 @@ function paginasVisiveis(atual, total) {
   return lista;
 }
 
-export default function Paginacao({ dados, aoMudar }) {
+/* Navegação entre as páginas de uma lista. Com aoMudarPorPagina, mostra também "N por página". */
+export default function Paginacao({ dados, aoMudar, aoMudarPorPagina }) {
   if (!dados || !dados.total) return null;
   const inicio = (dados.pagina - 1) * dados.por_pagina + 1;
   const fim = Math.min(dados.pagina * dados.por_pagina, dados.total);
 
   return (
     <nav className="paginacao" aria-label="Paginação">
-      <p className="paginacao__info" aria-live="polite">Mostrando {inicio}–{fim} de {dados.total}</p>
-      <div className="paginacao__botoes">
-        <button type="button" className="btn btn--fantasma btn--sm" disabled={dados.pagina === 1}
-          aria-label="Página anterior" onClick={() => aoMudar(dados.pagina - 1)}>
-          <Icon nome="chevronEsquerda" />
-        </button>
-        {paginasVisiveis(dados.pagina, dados.paginas).map((p, i) => (p === '…'
-          ? <span key={'r' + i} className="legenda" aria-hidden="true" style={{ alignSelf: 'center' }}>…</span>
-          : (
-            <button key={p} type="button" className="btn btn--fantasma btn--sm"
-              aria-current={p === dados.pagina ? 'page' : undefined} aria-label={'Página ' + p}
-              onClick={() => aoMudar(p)}>
-              {p}
-            </button>
-          )))}
-        <button type="button" className="btn btn--fantasma btn--sm" disabled={dados.pagina === dados.paginas}
-          aria-label="Próxima página" onClick={() => aoMudar(dados.pagina + 1)}>
-          <Icon nome="chevronDireita" />
-        </button>
+      <p className="paginacao__info" aria-live="polite">{inicio}–{fim} de {dados.total}</p>
+      <div className="paginacao__controles">
+        {aoMudarPorPagina && (
+          <select className="campo__select paginacao__por-pagina" aria-label="Itens por página"
+            value={dados.por_pagina} onChange={(e) => aoMudarPorPagina(Number(e.target.value))}>
+            {OPCOES_POR_PAGINA.map((n) => <option key={n} value={n}>{n} por página</option>)}
+          </select>
+        )}
+        <div className="paginacao__botoes">
+          <button type="button" className="btn btn--fantasma btn--sm" disabled={dados.pagina === 1}
+            aria-label="Página anterior" onClick={() => aoMudar(dados.pagina - 1)}>
+            <Icon nome="chevronEsquerda" />
+          </button>
+          {paginasVisiveis(dados.pagina, dados.paginas).map((p, i) => (p === '…'
+            ? <span key={'r' + i} className="legenda" aria-hidden="true" style={{ alignSelf: 'center' }}>…</span>
+            : (
+              <button key={p} type="button" className="btn btn--fantasma btn--sm"
+                aria-current={p === dados.pagina ? 'page' : undefined} aria-label={'Página ' + p}
+                onClick={() => aoMudar(p)}>
+                {p}
+              </button>
+            )))}
+          <button type="button" className="btn btn--fantasma btn--sm" disabled={dados.pagina === dados.paginas}
+            aria-label="Próxima página" onClick={() => aoMudar(dados.pagina + 1)}>
+            <Icon nome="chevronDireita" />
+          </button>
+        </div>
       </div>
     </nav>
   );

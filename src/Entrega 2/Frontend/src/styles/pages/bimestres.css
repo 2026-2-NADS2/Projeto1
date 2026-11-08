@@ -1,0 +1,23 @@
+/* Bimestres */
+.bimestres {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--esp-3);
+}
+.bimestre { display: flex; flex-direction: column; gap: var(--esp-3); padding: var(--esp-4); border-top: 4px solid var(--cor-borda); }
+.bimestre--ativo { border-top-color: var(--cor-sucesso); }
+.bimestre--pendente { border-top-color: var(--cor-alerta); }
+.bimestre__topo { display: flex; align-items: center; justify-content: space-between; gap: var(--esp-2); flex-wrap: wrap; }
+.bimestre__topo h2 { margin: 0; font-size: 1.3rem; }
+.bimestre__datas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--esp-2); margin: 0; }
+.bimestre__datas dt { font-size: 0.75rem; font-weight: 700; color: var(--cor-texto-secundario); text-transform: uppercase; letter-spacing: 0.02em; }
+.bimestre__datas dd { margin: 0; font-weight: 600; }
+.bimestre__progresso .legenda { display: block; margin-bottom: 6px; }
+.bimestre__status { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.bimestre__acoes { display: flex; flex-wrap: wrap; gap: var(--esp-2); margin-top: auto; }
+
+@media (max-width: 900px) { .bimestres { grid-template-columns: 1fr; } }
+@media (max-width: 480px) { .bimestre__datas { grid-template-columns: 1fr; } .bimestre__acoes .btn { flex: 1; } }

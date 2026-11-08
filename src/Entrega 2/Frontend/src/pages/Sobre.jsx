@@ -14,6 +14,7 @@ const PILARES = [
   { icone: 'usuarios', tom: 'tom-magenta', titulo: 'Famílias', texto: 'Consultam os relatórios publicados dos seus filhos.' }
 ];
 
+/* Página Sobre a 4U */
 export default function Sobre() {
   useEffect(() => { document.title = 'Sobre a 4U'; }, []);
 

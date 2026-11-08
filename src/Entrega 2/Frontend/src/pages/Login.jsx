@@ -3,9 +3,8 @@ import { Link, Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 import Icon from '../components/Icon.jsx';
 import { CampoTexto } from '../components/Campo.jsx';
 import RodapePublico from '../components/layout/RodapePublico.jsx';
-import LinkInativo from '../components/layout/LinkInativo.jsx';
 import api from '../services/api.js';
-import credenciaisDemo from '../data/mock/credenciais_demo.js';
+import credenciaisDemo from '../data/credenciaisDemo.js';
 import { useAuth } from '../contexts/AuthContext.jsx';
 import { DASHBOARD_POR_PERFIL, ROTAS } from '../utils/rotas.js';
 import { PERFIS } from '../utils/formatadores.js';
@@ -22,14 +21,17 @@ function avisoDaUrl(params) {
   if (params.get('saiu') === '1') return { tipo: 'sucesso', icone: 'check', texto: 'Você saiu da 4U com segurança.' };
   if (params.get('expirada') === '1') return { tipo: 'info', icone: 'relogio', texto: 'Sua sessão expirou por inatividade. Entre novamente para continuar.' };
   if (params.get('restrito') === '1') return { tipo: 'info', icone: 'cadeado', texto: 'Entre com seu e-mail e senha para acessar essa área.' };
+  if (params.get('desativado') === '1') return { tipo: 'erro', icone: 'cadeado', texto: 'Seu acesso foi desativado pela escola. Procure a secretaria.' };
+  if (params.get('senha') === '1') return { tipo: 'sucesso', icone: 'check', texto: 'Senha salva! Agora entre com seu e-mail e a nova senha.' };
   return null;
 }
 
+/* Tela de login (o token JWT fica na sessão do navegador) */
 export default function Login() {
   const { usuario, entrar } = useAuth();
   const navigate = useNavigate();
   const [params] = useSearchParams();
-  const [valores, setValores] = useState({ email: '', senha: '' });
+  const [valores, setValores] = useState({ email: params.get('email') || '', senha: '' });
   const [erros, setErros] = useState({});
   const [tentouEnviar, setTentouEnviar] = useState(false);
   const [mostrarSenha, setMostrarSenha] = useState(false);
@@ -136,9 +138,9 @@ export default function Login() {
             </button>
           </form>
 
-          <p className="login__esqueci"><LinkInativo>Esqueci minha senha</LinkInativo></p>
+          <p className="login__esqueci"><Link to={ROTAS.esqueciSenha}>Esqueci minha senha</Link></p>
           <p className="legenda login__primeiro-acesso">
-            Primeiro acesso? O convite para criar sua senha é enviado pela escola para o e-mail cadastrado.
+            Primeiro acesso? A escola libera o seu acesso e envia o link para você criar a senha.
           </p>
         </section>
 
@@ -149,7 +151,7 @@ export default function Login() {
             {credenciaisDemo.contas.map((conta) => (
               <li key={conta.email}>
                 <button type="button" className="login__demo-conta" onClick={() => preencherDemo(conta)}>
-                  <strong>{PERFIS[conta.perfil]}</strong>
+                  <strong>{PERFIS[conta.perfil]}{conta.nome && <> · {conta.nome}</>}</strong>
                   <span>{conta.email}</span>
                 </button>
               </li>

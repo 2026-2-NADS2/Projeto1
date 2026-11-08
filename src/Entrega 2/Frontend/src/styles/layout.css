@@ -1,7 +1,6 @@
 /* Marca */
 .marca { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
 .marca__logotipo { height: 38px; width: auto; }
-.marca__simbolo { height: 30px; width: auto; }
 
 /* Área pública */
 .cabecalho-publico { padding: var(--esp-4) 0 var(--esp-3); }
@@ -67,6 +66,13 @@
 
 /* Área autenticada */
 .app {
+  /* Cor do módulo (segue o menu lateral). Administrador: azul marinho */
+  --cor-modulo: var(--cor-marinho);
+  --cor-modulo-texto: var(--cor-marinho);
+  --cor-modulo-contraste: #fff;
+  --tint-modulo: var(--tint-marinho);
+  --borda-modulo: #D2D6DE;
+
   display: grid;
   grid-template-columns: var(--largura-sidebar) minmax(0, 1fr);
   min-height: 100vh;
@@ -174,6 +180,23 @@
 }
 .sidebar__fechar { display: none; }
 
+/* Professor: amarelo (texto em marrom escuro para ter contraste) */
+.app--professor {
+  --cor-modulo: var(--cor-alerta);
+  --cor-modulo-texto: #7A560B;
+  --cor-modulo-contraste: var(--cor-marinho);
+  --tint-modulo: var(--tint-alerta);
+  --borda-modulo: #F0DCA6;
+}
+/* Responsável: magenta */
+.app--responsavel {
+  --cor-modulo: var(--cor-magenta);
+  --cor-modulo-texto: var(--cor-magenta);
+  --cor-modulo-contraste: #fff;
+  --tint-modulo: var(--tint-magenta);
+  --borda-modulo: #E9C9E0;
+}
+
 /* Área principal */
 .app__principal { display: flex; flex-direction: column; min-width: 0; }
 
@@ -184,34 +207,146 @@
   display: flex;
   align-items: center;
   gap: var(--esp-3);
-  padding: 12px var(--esp-5);
+  padding: 10px var(--esp-4);
   background: rgba(255, 248, 237, 0.94);
   backdrop-filter: blur(6px);
   border-bottom: 1px solid var(--cor-borda);
 }
 .topbar__menu { display: none; }
-.topbar__busca { flex: 1; }
+
+/* Título da tela no topo: portal, título e texto de apoio */
+.topbar__titulo { flex: 1; min-width: 0; }
+.topbar__portal {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--cor-modulo-texto);
+  letter-spacing: 0.02em;
+}
+/* Bolinha com a cor do módulo antes de "Portal do ..." */
+.topbar__portal::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--cor-modulo); }
+.topbar__titulo h1 { margin: 2px 0 0; font-size: 1.5rem; line-height: 1.25; }
+
+
+/* Sino e ajuda */
+.topbar__acoes { display: flex; align-items: center; gap: var(--esp-2); padding-right: var(--esp-3); border-right: 1px solid var(--cor-borda); }
+.topbar__botao {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  background: var(--cor-card);
+  color: var(--cor-marinho);
+  cursor: pointer;
+  transition: border-color var(--transicao), color var(--transicao);
+}
+.topbar__botao:hover, .topbar__botao[aria-expanded="true"] { border-color: var(--cor-primaria); color: var(--cor-primaria); }
+.topbar__ponto {
+  position: absolute;
+  top: 7px;
+  right: 8px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--cor-erro);
+  box-shadow: 0 0 0 2px var(--cor-card);
+}
+
+/* Painel de notificações */
+.notificacoes { position: relative; }
+.notificacoes__painel {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  width: min(380px, calc(100vw - 24px));
+  max-height: min(480px, 70vh);
+  overflow-y: auto;
+  background: var(--cor-card);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra-elevada);
+  z-index: 300;
+}
+.notificacoes__cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--esp-3);
+  border-bottom: 1px solid var(--cor-borda);
+}
+.notificacoes__cabecalho h2 { margin: 0; font-size: 1rem; }
+.notificacoes__contador {
+  min-width: 24px;
+  padding: 2px 8px;
+  border-radius: var(--raio-pill);
+  background: var(--cor-erro);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-align: center;
+}
+.notificacoes__vazio { margin: 0; padding: var(--esp-4) var(--esp-3); color: var(--cor-texto-secundario); font-size: var(--fs-legenda); }
+.notificacoes__lista { list-style: none; margin: 0; padding: 0; }
+.notificacoes__lista li + li { border-top: 1px solid var(--cor-borda); }
+.notificacao {
+  display: flex;
+  gap: var(--esp-2);
+  padding: var(--esp-3);
+  color: var(--cor-texto);
+  text-decoration: none;
+}
+.notificacao:hover, .notificacao:focus-visible { background: var(--cor-fundo); }
+.notificacao__icone {
+  flex-shrink: 0;
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--cor-fundo);
+  color: var(--cor-primaria);
+}
+.notificacao--alerta .notificacao__icone { color: var(--cor-erro); }
+.notificacao--sucesso .notificacao__icone { color: var(--cor-sucesso); }
+.notificacao__texto { display: flex; flex-direction: column; gap: 2px; font-size: var(--fs-legenda); }
+.notificacao__texto strong { color: var(--cor-marinho); font-size: 0.9rem; }
+.notificacao__data { color: var(--cor-texto-secundario); font-size: 0.75rem; }
+
+.ajuda-rapida .faq { margin-bottom: var(--esp-4); }
+.ajuda-rapida .faq:last-child { margin-bottom: 0; }
+
 .topbar__usuario {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-left: auto;
   padding: 4px 14px 4px 4px;
   border: 1px solid var(--cor-borda);
   border-radius: var(--raio-pill);
   background: var(--cor-card);
 }
-.topbar__usuario .avatar { background: var(--cor-marinho); color: #fff; border-color: var(--cor-marinho); }
+.topbar__usuario .avatar { background: var(--cor-modulo); color: var(--cor-modulo-contraste); border-color: var(--cor-modulo); }
 .topbar__usuario-nome { font-weight: 700; font-size: 0.95rem; line-height: 1.2; color: var(--cor-marinho); }
 .topbar__usuario-perfil { font-size: 0.75rem; color: var(--cor-texto-secundario); line-height: 1.2; }
 
-.conteudo { flex: 1; padding: var(--esp-5); width: 100%; max-width: 1280px; }
-.conteudo__cabecalho { margin-bottom: var(--esp-4); display: flex; align-items: flex-end; justify-content: space-between; gap: var(--esp-3); flex-wrap: wrap; }
-.conteudo__cabecalho h1 { margin-bottom: 4px; }
-.conteudo__cabecalho p { margin: 0; color: var(--cor-texto-secundario); }
+.conteudo { flex: 1; padding: var(--esp-4); width: 100%; max-width: 1320px; }
+/* Texto de apoio da tela, logo abaixo da linha do topo */
+.conteudo__descricao { margin: 0 0 var(--esp-3); color: var(--cor-texto-secundario); max-width: 80ch; }
+/* Botões e filtros da tela, logo abaixo do texto de apoio */
+.conteudo__acoes { margin-bottom: var(--esp-3); display: flex; align-items: flex-end; justify-content: flex-end; gap: var(--esp-2) var(--esp-3); flex-wrap: wrap; }
 
+/* Rodapé: nome da plataforma e do projeto */
 .rodape-app {
-  padding: var(--esp-3) var(--esp-5);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px var(--esp-3);
+  padding: 12px var(--esp-4);
   border-top: 1px solid var(--cor-borda);
   font-size: var(--fs-legenda);
   color: var(--cor-texto-secundario);
@@ -245,18 +380,19 @@
     color: var(--sidebar-texto);
   }
   .sidebar__fechar:hover { background: var(--sidebar-hover); }
-  .topbar { padding: 10px var(--esp-4); }
   .topbar__menu { display: inline-grid; place-items: center; }
-  .conteudo { padding: var(--esp-4); }
-  .rodape-app { padding: var(--esp-3) var(--esp-4); }
 }
 
 @media (max-width: 600px) {
-  .topbar { flex-wrap: wrap; padding: 10px var(--esp-3); gap: var(--esp-2); }
-  .topbar__busca { order: 3; flex-basis: 100%; }
+  /* No celular o topo fica alto com o título: rola junto com a página */
+  .topbar { position: static; flex-wrap: wrap; padding: 10px var(--esp-3); gap: var(--esp-2); }
+  .topbar__titulo { order: 3; flex-basis: 100%; }
+  .topbar__titulo h1 { font-size: 1.3rem; }
+  .topbar__acoes { margin-left: auto; padding-right: var(--esp-2); }
+  .topbar__botao { width: 40px; height: 40px; }
   .topbar__usuario { padding: 3px; }
   .topbar__usuario-texto { display: none; }
   .conteudo { padding: var(--esp-3); }
-  .rodape-app { padding: var(--esp-3); }
+  .rodape-app { padding: 12px var(--esp-3); flex-direction: column; }
   h1 { font-size: 1.625rem; }
 }

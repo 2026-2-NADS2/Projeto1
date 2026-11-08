@@ -1,12 +1,18 @@
 const express = require('express');
-const router = express.Router();
-const controller = require('../controllers/alunoController');
+const rota = require('../utils/rota');
+const autenticar = require('../middlewares/autenticar');
 const exigirAdministrador = require('../middlewares/exigirAdministrador');
+const cadastro = require('../controllers/cadastroController');
 
-router.post('/', exigirAdministrador, controller.criar);
-router.get('/', controller.listar);
-router.get('/:id', controller.buscarPorId);
-router.put('/:id', controller.editar);
-router.patch('/:id/inativar', controller.inativar);
+const router = express.Router();
+
+/* Cadastro de alunos: só administrador */
+router.use(autenticar, exigirAdministrador);
+router.get('/', rota(cadastro.listar('alunos')));
+router.post('/', rota(cadastro.cadastrar('alunos')));
+router.get('/:id', rota(cadastro.detalhe('alunos')));
+router.put('/:id', rota(cadastro.editar('alunos')));
+router.patch('/:id/situacao', rota(cadastro.alterarSituacao('alunos')));
+router.delete('/:id', rota(cadastro.excluir('alunos')));
 
 module.exports = router;

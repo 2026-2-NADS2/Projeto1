@@ -1,22 +1,27 @@
 import { useEffect, useState } from 'react';
 import Icon from '../components/Icon.jsx';
-import { CampoAreaTexto, CampoTexto } from '../components/Campo.jsx';
+import { CampoAreaTexto, CampoSelect, CampoTexto } from '../components/Campo.jsx';
 import CabecalhoPublico from '../components/layout/CabecalhoPublico.jsx';
 import RodapePublico from '../components/layout/RodapePublico.jsx';
 import api from '../services/api.js';
 import useApi from '../hooks/useApi.js';
-import { email as regraEmail, minimo, obrigatorio, validar } from '../utils/validacao.js';
+import { email as regraEmail, mascaraTelefone, minimo, obrigatorio, telefone as regraTelefone, validar } from '../utils/validacao.js';
 import '../styles/pages/contato.css';
 
 const LIMITE_MENSAGEM = 1000;
 
+/* Assuntos do formulário (gravados em mensagem_contato.assunto) */
+const ASSUNTOS = ['Dúvida sobre a plataforma', 'Primeiro acesso ou senha', 'Matrícula e cadastro', 'Sugestão', 'Outro assunto'];
+
 const REGRAS = {
   nome: [obrigatorio('Informe seu nome.'), minimo(3, 'Informe seu nome completo.')],
   email: [obrigatorio('Informe seu e-mail para receber a resposta.'), regraEmail()],
+  telefone: [regraTelefone()],
+  assunto: [obrigatorio('Escolha o assunto da mensagem.')],
   mensagem: [obrigatorio('Escreva sua mensagem.'), minimo(10, 'Escreva sua mensagem com pelo menos 10 caracteres.')]
 };
 
-const VAZIO = { nome: '', email: '', mensagem: '' };
+const VAZIO = { nome: '', email: '', telefone: '', assunto: '', mensagem: '' };
 
 /* Cartões com o contato da escola (vem de configuracao_escola) */
 function CanaisContato() {
@@ -59,6 +64,7 @@ function CanaisContato() {
   );
 }
 
+/* Página Contato: canais da escola e formulário (grava em mensagem_contato) */
 export default function Contato() {
   const [valores, setValores] = useState(VAZIO);
   const [erros, setErros] = useState({});
@@ -91,6 +97,8 @@ export default function Contato() {
       await api.enviarContato({
         nome: valores.nome.trim(),
         email: valores.email.trim(),
+        telefone: valores.telefone.trim(),
+        assunto: valores.assunto,
         mensagem: valores.mensagem.trim()
       });
       setValores(VAZIO);
@@ -139,6 +147,16 @@ export default function Contato() {
                 id="email" rotulo="E-mail" obrigatorio type="email" autoComplete="email" inputMode="email"
                 placeholder="seu.email@exemplo.com" value={valores.email} erro={erros.email} maxLength={160}
                 onChange={(e) => alterar('email', e.target.value)}
+              />
+              <CampoTexto
+                id="telefone" rotulo="Telefone (opcional)" type="tel" inputMode="tel" autoComplete="tel"
+                placeholder="(11) 91234-5678" value={valores.telefone} erro={erros.telefone}
+                onChange={(e) => alterar('telefone', mascaraTelefone(e.target.value))}
+              />
+              <CampoSelect
+                id="assunto" rotulo="Assunto" obrigatorio placeholder="Selecione o assunto"
+                opcoes={ASSUNTOS.map((a) => ({ valor: a, rotulo: a }))}
+                value={valores.assunto} erro={erros.assunto} onChange={(e) => alterar('assunto', e.target.value)}
               />
               <CampoAreaTexto
                 id="mensagem" rotulo="Mensagem" obrigatorio inteiro placeholder="Escreva sua dúvida, sugestão ou pedido"

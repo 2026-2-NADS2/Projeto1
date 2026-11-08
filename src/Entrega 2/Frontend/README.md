@@ -27,12 +27,11 @@ Perfis: **Administrador**, **Professor** e **Responsável**.
 
 ## Como executar
 
-É preciso ter o [Node.js](https://nodejs.org) instalado.
-
-No terminal, a partir da raiz do repositório:
+O passo a passo completo (banco, API e site) está no [README da Entrega 2](../README.md).
+Com a API rodando em http://localhost:3000:
 
 ```bash
-cd "src/Entrega 1/Frontend"
+cd "src/Entrega 2/Frontend"
 npm install
 npm run dev
 ```
@@ -41,47 +40,56 @@ Depois, abra http://localhost:5173.
 
 ## Telas
 
-| Tela | Rota |
-|---|---|
-| Home | `/` |
-| Login | `/login` |
-| Dashboard do Administrador | `/admin` |
-| Cadastros | `/admin/cadastros` |
-| Dashboard do Professor | `/professor` |
-| Dashboard do Responsável | `/responsavel` |
-| Página não encontrada (404) | qualquer outra rota | para testar, acesse: http://localhost:5173/contato
+| Perfil | Tela | Rota |
+|---|---|---|
+| Público | Home, Sobre, Ajuda, Contato | `/`, `/sobre`, `/ajuda`, `/contato` |
+| Público | Login, Esqueci minha senha, Criar/nova senha | `/login`, `/esqueci-senha`, `/definir-senha` |
+| Administrador | Dashboard | `/admin` |
+| Administrador | Cadastros (cadastrar, editar, liberar acesso, desativar, excluir, vínculos) | `/admin/cadastros` |
+| Administrador | Acompanhamentos (revisar, ajustar, devolver, publicar) | `/admin/acompanhamentos` |
+| Administrador | Bimestres (período de digitação) | `/admin/bimestres` |
+| Administrador | Relatórios (indicadores e exportação .csv) | `/admin/relatorios` |
+| Professor | Dashboard, Minhas turmas | `/professor`, `/professor/turmas` |
+| Professor | Acompanhamentos (registrar, salvar rascunho, enviar, corrigir) | `/professor/acompanhamentos` |
+| Professor | Retornos (devolvidos e observações das famílias) | `/professor/retornos` |
+| Responsável | Dashboard, Meus alunos | `/responsavel`, `/responsavel/alunos` |
+| Responsável | Relatórios (ciência e PDF) | `/responsavel/relatorios` |
+| Todos | Página não encontrada (404) | qualquer outra rota |
 
 ## Usuários para teste
 
-| Perfil | E-mail | Senha |
-|---|---|---|
-| Administrador | admin@escola4u.test | 4u@demo |
-| Professor | professor@escola4u.test | 4u@demo |
-| Responsável | responsavel@escola4u.test | 4u@demo |
+Senha de todos: `4u@demo`.
+
+| Perfil | E-mail |
+|---|---|
+| Administradoras | rafaela.mello@4u.com, laura.rayssa@4u.com, anna.silva@4u.com, dilly.martins@4u.com |
+| Professor | professor@escola4u.test |
+| Responsável | responsavel@escola4u.test |
 
 ## Funcionalidades
 
-- Login com validação dos campos e acesso de acordo com o perfil.
-- Cada perfil só acessa o próprio painel.
-- Cadastros com abas (alunos, professores e responsáveis), busca por nome, filtro por situação e paginação.
-- Formulário de novo cadastro com validação. A data de nascimento é digitada no formato dd/mm/aaaa.
-- No painel do Responsável, os filtros de aluno, ano letivo e bimestre atualizam a média e o gráfico.
+- Login com JWT, perfis com acesso separado e sessão que expira após 30 minutos sem uso.
+- Primeiro acesso por convite e "Esqueci minha senha" com link de uso único enviado por e-mail.
+- Desativar o acesso tira a pessoa do sistema na hora.
+- Fluxo do acompanhamento: rascunho → enviado → em revisão → publicado, com devolução e histórico.
+- Relatório do responsável com ciência, observação e PDF (imprimir → salvar como PDF).
 - Mensagens de carregamento, de lista vazia e de erro, com o botão "Tentar novamente".
 - Layout responsivo para computador, tablet e celular.
 
 ## Dados
 
-Os dados usados são fictícios e ficam em `src/data/mock`, organizados conforme as tabelas do banco do projeto. As telas buscam esses dados pelo arquivo `src/services/api.js`, que depois será ligado ao backend.
+Todas as telas buscam os dados na API pelo arquivo `src/services/api.js`. O endereço da API vem de `VITE_API_BASE_URL` (sem essa variável, usa `http://localhost:3000/api`).
 
 ## Estrutura
 
+```
 src/
 ├── pages/        telas
 ├── components/   componentes reutilizáveis
 ├── contexts/     login e mensagens
 ├── hooks/        carregamento de dados
 ├── services/     acesso aos dados
-├── data/mock/    dados fictícios
+├── data/        contas de demonstração da tela de login
 ├── utils/        validações, formatação e rotas
 ├── styles/       estilos
 └── assets/       logo e símbolo

@@ -2,6 +2,7 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext.jsx';
 import { DASHBOARD_POR_PERFIL, ROTAS } from '../../utils/rotas.js';
 
+/* Rota logada: sem login vai para o login; perfil errado volta para o próprio painel */
 export default function RotaProtegida({ perfil, children }) {
   const { usuario } = useAuth();
   if (!usuario) return <Navigate to={ROTAS.login + '?restrito=1'} replace />;

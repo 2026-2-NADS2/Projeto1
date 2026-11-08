@@ -1,3 +1,4 @@
+/* Rodapé das páginas públicas */
 export default function RodapePublico() {
   return (
     <footer className="rodape-publico">

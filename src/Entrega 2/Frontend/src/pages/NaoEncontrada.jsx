@@ -7,6 +7,7 @@ import logotipo from '../assets/logotipo-4u-original.png';
 import simbolo from '../assets/simbolo-4u.svg';
 import '../styles/pages/erro.css';
 
+/* Página 404: rota que não existe */
 export default function NaoEncontrada() {
   const location = useLocation();
   const navigate = useNavigate();

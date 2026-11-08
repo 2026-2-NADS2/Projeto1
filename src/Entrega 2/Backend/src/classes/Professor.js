@@ -15,30 +15,23 @@ class Professor {
   get email() { return this._email; }
   get ativo() { return this._ativo; }
 
-  editar({ nome, registro }) {
+  editar({ nome, registro, email }) {
     if (nome !== undefined) this._nome = nome;
     if (registro !== undefined) this._registro = registro;
-  }
-
-  ativar() {
-    this._ativo = true;
-  }
-
-  inativar() {
-    this._ativo = false;
+    if (email !== undefined) this._email = email;
   }
 
   toJSON() {
     return {
       id: this._id,
       nome: this._nome,
-      registro: this._registro,
+      registro_funcional: this._registro,
       email: this._email,
       ativo: this._ativo
     };
   }
 
-  // Monta o objeto a partir do JOIN professor + usuario.
+  /* Monta o objeto a partir do JOIN professor + usuario */
   static fromRow(row) {
     return new Professor({
       id: row.professor_id,

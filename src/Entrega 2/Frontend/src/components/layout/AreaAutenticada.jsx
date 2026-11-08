@@ -1,21 +1,27 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Icon from '../Icon.jsx';
-import LinkInativo from './LinkInativo.jsx';
 import { ModalConfirmacao } from '../Modal.jsx';
+import Notificacoes from './Notificacoes.jsx';
+import AjudaRapida from './AjudaRapida.jsx';
 import { useAuth } from '../../contexts/AuthContext.jsx';
 import { useToast } from '../../contexts/ToastContext.jsx';
 import { DASHBOARD_POR_PERFIL, MENUS, ROTAS } from '../../utils/rotas.js';
 import { iniciais, PERFIS } from '../../utils/formatadores.js';
 import simbolo from '../../assets/simbolo-4u.svg';
 
-export default function AreaAutenticada({ paginaAtiva, busca, children }) {
+const PORTAL = { ADMINISTRADOR: 'Portal do Administrador', PROFESSOR: 'Portal do Professor', RESPONSAVEL: 'Portal do Responsável' };
+
+/* Área logada: menu lateral; topo com o portal, o título da tela (titulo), notificações, ajuda e o usuário;
+   o texto de apoio (descricao) fica no conteúdo, logo abaixo da linha do topo */
+export default function AreaAutenticada({ paginaAtiva, titulo, descricao, children }) {
   const { usuario, sair } = useAuth();
   const { mostrar } = useToast();
   const navigate = useNavigate();
   const location = useLocation();
   const [menuAberto, setMenuAberto] = useState(false);
   const [confirmarSaida, setConfirmarSaida] = useState(false);
+  const [ajudaAberta, setAjudaAberta] = useState(false);
   const botaoMenuRef = useRef(null);
   const sidebarRef = useRef(null);
 
@@ -49,14 +55,14 @@ export default function AreaAutenticada({ paginaAtiva, busca, children }) {
 
   const perfil = usuario.perfil;
 
-  /* Cor do menu lateral por perfil (asas da borboleta) */
-  const COR_SIDEBAR = { ADMINISTRADOR: 'sidebar--admin', PROFESSOR: 'sidebar--professor', RESPONSAVEL: 'sidebar--responsavel' };
+  /* Cor de cada módulo (asas da borboleta): menu lateral e detalhes das telas (abas, avatares, gráficos) */
+  const MODULO = { ADMINISTRADOR: 'admin', PROFESSOR: 'professor', RESPONSAVEL: 'responsavel' }[perfil] || 'admin';
 
   return (
-    <div className={'app' + (menuAberto ? ' menu-aberto' : '')}>
+    <div className={`app app--${MODULO}` + (menuAberto ? ' menu-aberto' : '')}>
       <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
-      <aside className={'sidebar ' + (COR_SIDEBAR[perfil] || '')} id="sidebar" ref={sidebarRef}>
+      <aside className={'sidebar sidebar--' + MODULO} id="sidebar" ref={sidebarRef}>
         <button type="button" className="btn btn--icone sidebar__fechar" aria-label="Fechar menu" onClick={fecharMenu}>
           <Icon nome="fechar" />
         </button>
@@ -71,18 +77,14 @@ export default function AreaAutenticada({ paginaAtiva, busca, children }) {
               const conteudo = <><Icon nome={item.icone} /><span className="menu__texto">{item.rotulo}</span></>;
               return (
                 <li key={item.rotulo}>
-                  {item.caminho ? (
-                    <Link
-                      className="menu__link"
-                      to={item.caminho}
-                      aria-current={item.caminho === paginaAtiva ? 'page' : undefined}
-                      onClick={() => setMenuAberto(false)}
-                    >
-                      {conteudo}
-                    </Link>
-                  ) : (
-                    <LinkInativo className="menu__link">{conteudo}</LinkInativo>
-                  )}
+                  <Link
+                    className="menu__link"
+                    to={item.caminho}
+                    aria-current={item.caminho === paginaAtiva ? 'page' : undefined}
+                    onClick={() => setMenuAberto(false)}
+                  >
+                    {conteudo}
+                  </Link>
                 </li>
               );
             })}
@@ -109,14 +111,15 @@ export default function AreaAutenticada({ paginaAtiva, busca, children }) {
           >
             <Icon nome="menu" />
           </button>
-          <div className="topbar__busca">
-            {busca && (
-              <div className="busca" role="search">
-                <label htmlFor="busca-topo" className="sr-only">{busca}</label>
-                <Icon nome="buscar" />
-                <input id="busca-topo" className="busca__campo" type="search" autoComplete="off" placeholder={busca} />
-              </div>
-            )}
+          <div className="topbar__titulo">
+            <p className="topbar__portal">{PORTAL[perfil]}</p>
+            {titulo && <h1>{titulo}</h1>}
+          </div>
+          <div className="topbar__acoes">
+            <Notificacoes />
+            <button type="button" className="topbar__botao" aria-label="Perguntas frequentes" onClick={() => setAjudaAberta(true)}>
+              <Icon nome="ajuda" />
+            </button>
           </div>
           <div className="topbar__usuario">
             <span className="avatar" aria-hidden="true">{iniciais(usuario.nome)}</span>
@@ -128,11 +131,17 @@ export default function AreaAutenticada({ paginaAtiva, busca, children }) {
         </header>
 
         <main className="conteudo" id="conteudo" tabIndex={-1}>
+          {descricao && <p className="conteudo__descricao nao-imprimir">{descricao}</p>}
           {children}
         </main>
 
-        <footer className="rodape-app">4U — Plataforma de Acompanhamento Escolar</footer>
+        <footer className="rodape-app">
+          <span>4U — Plataforma de Acompanhamento Escolar</span>
+          <span>Projeto Interdisciplinar · 2º ADS · 2026</span>
+        </footer>
       </div>
+
+      {ajudaAberta && <AjudaRapida perfil={perfil} aoFechar={() => setAjudaAberta(false)} />}
 
       {confirmarSaida && (
         <ModalConfirmacao

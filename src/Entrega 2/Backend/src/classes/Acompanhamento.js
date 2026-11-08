@@ -1,3 +1,5 @@
+const ErroApi = require('../utils/ErroApi');
+
 const STATUS = {
   RASCUNHO: 'RASCUNHO',
   ENVIADO: 'ENVIADO',
@@ -7,6 +9,16 @@ const STATUS = {
   CANCELADO: 'CANCELADO'
 };
 
+const ROTULOS = {
+  RASCUNHO: 'Rascunho',
+  ENVIADO: 'Enviado para revisão',
+  EM_REVISAO: 'Em revisão',
+  DEVOLVIDO: 'Devolvido para ajustes',
+  PUBLICADO: 'Publicado',
+  CANCELADO: 'Cancelado'
+};
+
+/* Fluxo: RASCUNHO -> ENVIADO -> EM_REVISAO -> PUBLICADO, com DEVOLVIDO e CANCELADO */
 const TRANSICOES_VALIDAS = {
   RASCUNHO: [STATUS.ENVIADO, STATUS.CANCELADO],
   ENVIADO: [STATUS.EM_REVISAO, STATUS.CANCELADO],
@@ -19,8 +31,6 @@ const TRANSICOES_VALIDAS = {
 class Acompanhamento {
   constructor({
     id = null,
-    aluno,
-    professor,
     turmaId,
     disciplinaId,
     bimestreId,
@@ -32,8 +42,6 @@ class Acompanhamento {
     publicadoEm = null
   }) {
     this._id = id;
-    this._aluno = aluno;
-    this._professor = professor;
     this._turmaId = turmaId;
     this._disciplinaId = disciplinaId;
     this._bimestreId = bimestreId;
@@ -46,8 +54,6 @@ class Acompanhamento {
   }
 
   get id() { return this._id; }
-  get aluno() { return this._aluno; }
-  get professor() { return this._professor; }
   get turmaId() { return this._turmaId; }
   get disciplinaId() { return this._disciplinaId; }
   get bimestreId() { return this._bimestreId; }
@@ -58,20 +64,36 @@ class Acompanhamento {
   get revisorId() { return this._revisorId; }
   get publicadoEm() { return this._publicadoEm; }
 
+  /* Professor: só edita rascunho ou registro devolvido para ajustes */
   editar({ descricao, media }) {
     if (this._status !== STATUS.RASCUNHO && this._status !== STATUS.DEVOLVIDO) {
-      throw new Error('Só é possível editar um acompanhamento em RASCUNHO ou DEVOLVIDO.');
+      throw new ErroApi(409, 'Este acompanhamento já foi enviado e não pode mais ser editado pelo professor.');
     }
+    return this._aplicarEdicao({ descricao, media });
+  }
+
+  /* Administrador: ajusta o texto durante a revisão, antes de publicar */
+  editarNaRevisao({ descricao, media }) {
+    if (this._status !== STATUS.EM_REVISAO) {
+      throw new ErroApi(409, 'Só é possível ajustar o texto de um acompanhamento em revisão.');
+    }
+    return this._aplicarEdicao({ descricao, media });
+  }
+
+  _aplicarEdicao({ descricao, media }) {
+    const mudou = (descricao !== undefined && descricao !== this._descricao)
+      || (media !== undefined && Number(media) !== Number(this._media));
     if (descricao !== undefined) this._descricao = descricao;
     if (media !== undefined) this._media = media;
+    /* Cada alteração de texto ou média vira uma nova versão (acompanhamento_versao) */
+    if (mudou) this._versaoAtual += 1;
+    return mudou;
   }
 
   _transicionar(novoStatus) {
     const permitidos = TRANSICOES_VALIDAS[this._status] || [];
     if (!permitidos.includes(novoStatus)) {
-      throw new Error(
-        `Transição inválida: não é possível ir de ${this._status} para ${novoStatus}.`
-      );
+      throw new ErroApi(409, `Não é possível passar de "${ROTULOS[this._status]}" para "${ROTULOS[novoStatus]}".`);
     }
     this._status = novoStatus;
   }
@@ -95,25 +117,20 @@ class Acompanhamento {
     this._publicadoEm = new Date();
   }
 
-  cancelar() {
-    this._transicionar(STATUS.CANCELADO);
-  }
-
-  toJSON() {
-    return {
-      id: this._id,
-      aluno: this._aluno ? this._aluno.toJSON() : null,
-      professor: this._professor ? this._professor.toJSON() : null,
-      turmaId: this._turmaId,
-      disciplinaId: this._disciplinaId,
-      bimestreId: this._bimestreId,
-      descricao: this._descricao,
-      media: this._media,
-      status: this._status,
-      versaoAtual: this._versaoAtual,
-      revisorId: this._revisorId,
-      publicadoEm: this._publicadoEm
-    };
+  /* Monta o objeto a partir de uma linha da tabela `acompanhamento` */
+  static fromRow(row) {
+    return new Acompanhamento({
+      id: row.id,
+      turmaId: row.turma_id,
+      disciplinaId: row.disciplina_id,
+      bimestreId: row.bimestre_id,
+      descricao: row.descricao,
+      media: row.media !== null ? Number(row.media) : null,
+      status: row.status,
+      versaoAtual: row.versao_atual,
+      revisorId: row.revisor_id,
+      publicadoEm: row.publicado_em
+    });
   }
 }
 
