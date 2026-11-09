@@ -35,17 +35,17 @@ O projeto 4U conecta professores, administração e responsáveis através de um
 ```
 Projeto1/
 ├── Documentos/
-│   ├── Entrega 1/              documentos de cada disciplina (Banco de Dados, Desenvolvimento Web
-│   └── Entrega 2/              Full Stack, Design de Interface Digital, Estrutura de Dados e POO)
+│   ├── Entrega 1/              
+│   └── Entrega 2/              
 ├── Imagens/
 ├── src/
 │   ├── Entrega 1/
-│   │   ├── Backend/            MVP do back-end em POO (classes)
-│   │   └── Frontend/           telas em React com dados fictícios
+│   │   ├── Backend/            
+│   │   └── Frontend/           
 │   └── Entrega 2/
-│       ├── Backend/            API Node.js/Express e scripts do banco (Banco de Dados/)
-│       ├── Frontend/           site em React + Vite
-│       └── README.md           tudo sobre a Entrega 2
+│       ├── Backend/            
+│       ├── Frontend/           
+│       └── README.md           
 ├── .gitignore
 └── README.md
 ```
