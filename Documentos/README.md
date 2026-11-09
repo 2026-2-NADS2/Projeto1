@@ -45,8 +45,7 @@
 | **Versão/modelo** | Sonnet 5.5 |
 | **Disciplina / Trabalho** | Estrutura de Dados - Lista de Alunos |
 | **Finalidade de uso** | Apoio no desenvolvimento e na revisão da aplicação de console em C# que simula a listagem paginada de alunos (ListaAluno_PI). Utilização da ferramenta para estruturar o código, esclarecer dúvidas e verificar a adequação do trabalho aos requisitos da atividade.  |
-| ***Prompts* principais utilizados** | “Como poderia ser estruturada uma simulação de listagem de alunos em C#?”, “O projeto é compatível com o Visual Studio?”
-“Como poderia ser adicionada a paginação, considerando a busca dos alunos no banco de dados, o armazenamento em uma lista e a exibição por páginas no console?”, “Quais podem ser as causas de uma falha no build do projeto?”, “Como funciona a parte do código responsável por percorrer e exibir os alunos da lista?”, “Onde deve ser alterado o nome do projeto para ListaAluno_PI?”, “Como verificar se o banco de dados está incluído corretamente no projeto?” |
+| ***Prompts* principais utilizados** | “Como poderia ser estruturada uma simulação de listagem de alunos em C#?”, “O projeto é compatível com o Visual Studio?”, “Como poderia ser adicionada a paginação, considerando a busca dos alunos no banco de dados, o armazenamento em uma lista e a exibição por páginas no console?”, “Quais podem ser as causas de uma falha no build do projeto?”, “Como funciona a parte do código responsável por percorrer e exibir os alunos da lista?”, “Onde deve ser alterado o nome do projeto para ListaAluno_PI?”, “Como verificar se o banco de dados está incluído corretamente no projeto?” |
 | **Trechos ou entregas afetadas** | Código C# da listagem de alunos (classes, paginação, CSV e banco de dados). Parte do código sugerido por IA foi incorporada ao projeto, e a solução foi revisada e executada por mim no Visual Studio.  |
 
 ### Programação Orientada a Objetos
