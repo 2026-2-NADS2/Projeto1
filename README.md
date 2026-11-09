@@ -9,7 +9,7 @@
 
 ## Integrantes: <a href="https://www.linkedin.com/in/anna-paula-alves/">Anna Paula Alves Silva</a>, <a href="https://www.linkedin.com/in/dilly-martins-217176361/">Dilly Martins da Silva</a>, <a href="https://www.linkedin.com/in/laurarayssa/">Laura Rayssa Souza Araújo</a>, <a href="https://www.linkedin.com/in/rafaela-carvalho-barcos-mello-8484ba282/">Rafaela Carvalho Barcos Mello</a>
 
-## Professores Orientadores: <a href="https://www.linkedin.com/in/adriano-valente/">Adriano Felix Valente</a>, <a href="https://www.linkedin.com/in/eduardo-savino/">Eduardo Savino Gomes</a>, <a href="https://www.linkedin.com/in/francisco-escobar/">Francisco Escobar</a>, <a href="https://www.linkedin.com/in/jbuesso/">José Carlos Buesso Junior</a>, <a href="https://www.linkedin.com/in/ronaldo-araujo-pinto-3542811a/">Ronaldo Araujo Pinto</a>,
+## Professores Orientadores: <a href="https://www.linkedin.com/in/adriano-valente/">Adriano Felix Valente</a>, <a href="https://www.linkedin.com/in/eduardo-savino/">Eduardo Savino Gomes</a>, <a href="https://www.linkedin.com/in/francisco-escobar/">Francisco Escobar</a>, <a href="https://www.linkedin.com/in/jbuesso/">José Carlos Buesso Junior</a>, <a href="https://www.linkedin.com/in/ronaldo-araujo-pinto-3542811a/">Ronaldo Araujo Pinto</a>
 
 ## Descrição
 
@@ -17,51 +17,38 @@
   <img src="./Imagens/imagem_github.jpg" alt="Símbolo e Logotipo do 4U" width="1000">
 </p>
 
-O projeto 4U consiste em uma aplicação web responsiva desenvolvida para escolas de Ensino Fundamental, com o objetivo de otimizar o acompanhamento acadêmico bimestral e integrar a comunicação entre professores, gestão escolar e famílias. Por meio da plataforma, os docentes registram o desempenho de cada estudante em suas disciplinas, inserindo a média do bimestre, tags de acompanhamento e uma descrição qualitativa detalhada.Antes de chegarem aos familiares, esses registros passam por uma etapa de moderação da administração escolar, que pode revisar, ajustar, devolver para correções ou publicar as informações. Uma vez aprovados, os pais ou responsáveis conseguem visualizar de forma exclusiva os relatórios publicados dos alunos vinculados ao seu perfil, contando ainda com a facilidade de gerar e baixar o documento em Excel.
+O projeto 4U consiste em uma aplicação web responsiva desenvolvida para escolas de Ensino Fundamental, com o objetivo de otimizar o acompanhamento acadêmico bimestral e integrar a comunicação entre professores, gestão escolar e famílias. Por meio da plataforma, os docentes registram o desempenho de cada estudante em suas disciplinas, inserindo a média do bimestre, tags de acompanhamento e uma descrição qualitativa detalhada. Antes de chegarem aos familiares, esses registros passam por uma etapa de moderação da administração escolar, que pode revisar, ajustar, devolver para correções ou publicar as informações. Uma vez aprovados, os pais ou responsáveis visualizam de forma exclusiva os relatórios publicados dos alunos vinculados ao seu perfil, podendo dar ciência da leitura e gerar o relatório em PDF. A administração acompanha os indicadores de cada bimestre e exporta os dados para o Excel.
 <br><br>
-O projeto 4U conecta professores, administração e responsáveis através de uma plataforma web responsiva, otimizando o fluxo de informações e o monitoramento pedagógico dentro da comunidade escolar
+O projeto 4U conecta professores, administração e responsáveis através de uma plataforma web responsiva, otimizando o fluxo de informações e o monitoramento pedagógico dentro da comunidade escolar.
 <br><br>
+
+## 🌐 Acesse o projeto
+
+| | Endereço |
+|---|---|
+| Site | https://fouru-site.onrender.com |
+| API (teste de saúde) | https://fouru-api.onrender.com/api/saude |
+
 
 ## 🛠 Estrutura de pastas
 
--Raiz<br>
-|<br>
-|-->documentos<br>
-|  &emsp;|-->Entrega 1<br>
-|  &emsp; &emsp;|-->Banco de Dados<br>
-|  &emsp; &emsp;|-->Desenvolvimento Web Fullstack<br>
-|  &emsp; &emsp;|-->Design de Interface Digital<br>
-|  &emsp; &emsp;|-->Estrutura de Dados<br>
-|  &emsp; &emsp;|-->Programação Orientada a Objeto<br>
-|  &emsp;|-->Entrega 2<br>
-|  &emsp; &emsp;|-->Banco de Dados<br>
-|  &emsp; &emsp;|-->Desenvolvimento Web Fullstack<br>
-|  &emsp; &emsp;|-->Design de Interface Digital<br>
-|  &emsp; &emsp;|-->Estrutura de Dados<br>
-|  &emsp; &emsp;|-->Programação Orientada a Objeto<br>
-|  &emsp;|-->Documento - Projeto de Extensão - COM Empresa - 2026_1.docx<br>
-|  &emsp;|-->MODELO_BANNER_FECAP_2026_1.pptx<br>
-|  &emsp;|-->README.md<br>
-|<br>
-|-->imagens<br>
-|  &emsp;|-->imagem_github.jpg<br>
-|<br>
-|-->src<br>
-|  &emsp;|-->Entrega 1<br>
-|  &emsp; &emsp;|-->Backend<br>
-|  &emsp; &emsp;&emsp;|-->src<br>
-|  &emsp; &emsp;|-->Frontend<br>
-|  &emsp; &emsp;&emsp;|-->public<br>
-|  &emsp; &emsp;&emsp;|-->src<br>
-|  &emsp; &emsp;&emsp;&emsp;|-->assets<br>
-|  &emsp; &emsp;&emsp;&emsp;|-->components<br>
-|  &emsp; &emsp;&emsp;&emsp;|-->pages<br>
-|  &emsp;|-->Entrega 2<br>
-|  &emsp; &emsp;|-->Backend<br>
-|  &emsp; &emsp;|-->Frontend<br>
-|<br>
-|.gitignore<br>
-|readme.md<br>
+```
+Projeto1/
+├── Documentos/
+│   ├── Entrega 1/              documentos de cada disciplina (Banco de Dados, Desenvolvimento Web
+│   └── Entrega 2/              Full Stack, Design de Interface Digital, Estrutura de Dados e POO)
+├── Imagens/
+├── src/
+│   ├── Entrega 1/
+│   │   ├── Backend/            MVP do back-end em POO (classes)
+│   │   └── Frontend/           telas em React com dados fictícios
+│   └── Entrega 2/
+│       ├── Backend/            API Node.js/Express e scripts do banco (Banco de Dados/)
+│       ├── Frontend/           site em React + Vite
+│       └── README.md           tudo sobre a Entrega 2
+├── .gitignore
+└── README.md
+```
 
 ## 🛠 Tecnologias e Linguagens
 
@@ -69,30 +56,63 @@ O projeto 4U conecta professores, administração e responsáveis através de um
   <img alt="HTML" title="HTML" width="35" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"/>
   <img alt="CSS" title="CSS" width="35" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"/>
   <img alt="JavaScript" title="JavaScript" width="35" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"/>
+  <img alt="React" title="React 18" width="35" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg"/>
+  <img alt="React Router" title="React Router" width="35" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/reactrouter/reactrouter-original.svg"/>
+  <img alt="Vite" title="Vite" width="35" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vitejs/vitejs-original.svg"/>
+  <img alt="Node.js" title="Node.js" width="35" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg"/>
+  <img alt="Express" title="Express" width="35" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg"/>
+  <img alt="MySQL" title="MySQL" width="35" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"/>
   <img alt="Figma" title="Figma" width="35" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg"/>
-  <img alt="Visual Code" title="Visual Code" width="35" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg"/>
-  <img alt="" title="React 18" width="35" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg"/>
-  <img alt="" title="React Router" width="35" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/reactrouter/reactrouter-original.svg"/>
-  <img alt="" title="Vite" width="35" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vitejs/vitejs-original.svg"/>
-   <img alt="" title="MySQL" width="35" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"/>
-          
+  <img alt="Visual Studio Code" title="Visual Studio Code" width="35" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg"/>
+</p>
+
+| Parte | Tecnologia |
+|---|---|
+| Site | React 18, React Router e Vite |
+| API | Node.js, Express, JWT (login) e Nodemailer (e-mails) |
+| Banco de dados | MySQL 8 (20 tabelas, 7 índices e 7 views) |
+| Nuvem | Render (site e API) e Aiven (banco MySQL) |
+
 ## 💻 Configuração para Desenvolvimento
 
-Para abrir este projeto você necessita das seguintes ferramentas:
+Para abrir este projeto você precisa das seguintes ferramentas:
 
--<a href="https://code.visualstudio.com/">Visual Studio Code</a>
-Encontre na pasta de downloads e execute-o como qualquer outro programa.
+- <a href="https://code.visualstudio.com/">Visual Studio Code</a>
+- <a href="https://nodejs.org">Node.js</a> 18 ou mais novo
+- <a href="https://dev.mysql.com/downloads/installer/">MySQL Workbench</a> (Entrega 2, para ver o banco)
 
--<a href="https://nodejs.org">Node js</a>
+### Entrega 1
 
-No terminal, do Visual Studio Code, a partir da raiz do repositório:
+No terminal do Visual Studio Code, a partir da raiz do repositório:
 
 ```sh
 cd "src/Entrega 1/Frontend"
 npm install
 npm run dev
 ```
+
 Depois, abra http://localhost:5173.
+
+### Entrega 2 (site + API + banco de dados)
+
+1. Em `src/Entrega 2/Backend`, copie o `.env.example` com o nome `.env` e preencha.
+2. Ligue a API:
+
+```sh
+cd "src/Entrega 2/Backend"
+npm install
+npm run dev
+```
+
+3. Em outro terminal, ligue o site:
+
+```sh
+cd "src/Entrega 2/Frontend"
+npm install
+npm run dev
+```
+
+4. Abra http://localhost:5173.
 
 ## 📋 Licença/License
 <a href="https://github.com/2026-2-NADS2/Projeto1">4U</a> © 2026 by <a href="https://example.com"> Anna Paula Alves Silva, Dilly Martins da Silva, Laura Rayssa Souza Araújo e Rafaela Carvalho Barcos Mello</a> is licensed under <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International (CC BY 4.0)</a>
