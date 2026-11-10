@@ -1,7 +1,6 @@
 # Entregas do PI
 ### **DECLARAÇÃO DE USO DE INTELIGÊNCIA ARTIFICIAL**
 <br><br>
-
 ### Módulo do sistema 1 – Administrador
 
 | **Aluno(s) Responsável(veis)** | Anna Paula Alves Silva, Laura Rayssa Araújo, Rafaela Carvalho Barcos Mello |
