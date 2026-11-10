@@ -21,7 +21,7 @@
 | **Versão/modelo** | Sonnet 5.5 e Opus 5.5 |
 | **Disciplina / Trabalho** | Projeto Interdisciplinar 4U – Módulo do Professor |
 | **Finalidade de uso** | Apoio na construção das telas do professor em React com dados fictícios. Usamos o Claude para tirar dúvidas e revisar partes do código do formulário de registro do acompanhamento e da criação da carga com dados fictícios. |
-| ***Prompts* principais utilizados** | "Como fazer o acompanhamento só mudar de status na ordem certa, sem pular a revisão?"<br>"Como crio o gráfico de barras?"<br>"Como altero a cor dos acompanhamentos?" |
+| ***Prompts* principais utilizados** | "Como fazer o acompanhamento só mudar de status na ordem certa, sem pular a revisão?"<br>"Como altero a cor dos acompanhamentos?" |
 | **Trechos ou entregas afetadas** | Telas Dashboard, Minhas turmas, Acompanhamentos e Retornos do professor e as rotas da API que elas usam: painel com turmas e pendências, registro e correção dos acompanhamentos, envio para revisão e leitura das observações das famílias. O código e foi criado por nós com apoio do Claude e foi testado e revisado por cada integrante antes da entrega.|
 
 ### Módulo do sistema 3 – Responsável
