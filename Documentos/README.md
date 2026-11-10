@@ -93,7 +93,7 @@
 | **Versão/modelo** | GPT-6  e Sonnet 5.5 |
 | **Disciplina / Trabalho** | Design de Interface Digital - Projeto Interdisciplinar 4U |
 | **Finalidade de uso** | Apoio na elaboração e documentação do Design System, incluindo identidade visual, tipografia, grids, formas, componentes e acessibilidade. Análise de interfaces e sugestões para aprimorar a hierarquia visual, os espaçamentos e a organização das informações. Revisão da adequação das entregas aos requisitos acadêmicos. |
-| ***Prompts* principais utilizados** | ChatGPT: "Na parte do grid, como eu faria? Seguindo o meu arquivo .zip"; "Na parte da tipografia eu queria colocar a identificação da família da fonte, o espaçamento e tals. Pode me ajudar a ilustrar isso?"; "A parte das formas está vazio, o que eu coloco?"; "A disposição das infos está muito junto e aparenta estar bagunçada, pode me ajudar?". Claude: solicitações de revisão e avaliação da conformidade do trabalho com os documentos da disciplina. |
+| ***Prompts* principais utilizados** | ChatGPT: "Na parte da tipografia eu queria colocar a identificação da família da fonte, o espaçamento e tals. Pode me ajudar a ilustrar isso?"; "A parte das formas está vazio, o que eu coloco?"; "A disposição das infos está muito junto e aparenta estar bagunçada, pode me ajudar?". Claude: solicitações de revisão e avaliação da conformidade do trabalho com os documentos da disciplina. |
 | **Trechos ou entregas afetadas** | Design System da 4U, documentação da identidade visual, tipografia, grids, formas e acessibilidade, textos explicativos e sugestões de melhoria das interfaces dos módulos. Parte dos textos sugeridos por IA foi incorporada ao projeto. |
 
 ### Estrutura de Dados
