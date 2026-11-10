@@ -4,7 +4,7 @@
 
 ### Módulo do sistema 1 – Administrador
 
-| **Aluno(s) Responsável(veis)** | Anna Paula Alves Silva, Laura Rayssa Araújo, Rafaela Carvalho Barcos Mello |
+| **Aluno(s) Responsável(veis)** | Anna Paula Alves Silva, Laura Rayssa Araújo e Rafaela Carvalho Barcos Mello |
 | :--- | :--- |
 | **Ferramenta utilizada** | Claude (Anthropic) |
 | **Versão/modelo** | Sonnet 5.5 e Opus 5.5 |
@@ -15,7 +15,7 @@
 
 ### Módulo do sistema 2 – Professor
 
-| **Aluno(s) Responsável(veis)** | Anna Paula Alves Silva, Laura Rayssa Araújo, Rafaela Carvalho Barcos Mello|
+| **Aluno(s) Responsável(veis)** | Anna Paula Alves Silva, Laura Rayssa Araújo e Rafaela Carvalho Barcos Mello|
 | :--- | :--- |
 | **Ferramenta utilizada** | Claude (Anthropic) |
 | **Versão/modelo** | Sonnet 5.5 e Opus 5.5 |
@@ -26,7 +26,7 @@
 
 ### Módulo do sistema 3 – Responsável
 
-| **Aluno(s) Responsável(veis)** | Anna Paula Alves Silva, Laura Rayssa Araújo, Rafaela Carvalho Barcos Mello |
+| **Aluno(s) Responsável(veis)** | Anna Paula Alves Silva, Laura Rayssa Araújo e Rafaela Carvalho Barcos Mello |
 | :--- | :--- |
 | **Ferramenta utilizada** | Claude (Anthropic) |
 | **Versão/modelo** | Sonnet 5.5 e Opus 5.5 |
